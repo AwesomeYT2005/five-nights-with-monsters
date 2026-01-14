@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://c6b8sb1s2sl7s"]
+[gd_scene load_steps=16 format=3 uid="uid://c6b8sb1s2sl7s"]
 
 [ext_resource type="Texture2D" uid="uid://si4xh4xhyfi2" path="res://assets/images/terrain/tempdesk.png" id="1_b2cq8"]
 [ext_resource type="Texture2D" uid="uid://bwd30dahgl8r3" path="res://assets/images/player/light/lightcircles.png" id="1_bovvr"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bykr2oygdkevm" path="res://assets/images/gui/uparrow.png" id="5_urvlt"]
 [ext_resource type="Texture2D" uid="uid://uopgglmwg8fk" path="res://assets/images/gui/downarrow.png" id="6_d4w6o"]
 [ext_resource type="Texture2D" uid="uid://de0yhb2jb8qx" path="res://assets/images/gui/leftarrow.png" id="6_icy5c"]
+[ext_resource type="Texture2D" uid="uid://bl67arsxs06yk" path="res://assets/images/enemies/smilingmonster.png" id="9_qogh7"]
 [ext_resource type="Texture2D" uid="uid://bscn8lweryrmf" path="res://assets/images/terrain/templeftwindow.png" id="9_rmjfq"]
 [ext_resource type="Texture2D" uid="uid://cqsw45gin3v8n" path="res://assets/images/gui/rightarrow.png" id="10_rmjfq"]
 [ext_resource type="PackedScene" uid="uid://bmkq2vgkukpda" path="res://scenes/menu/camera_map.tscn" id="11_7pb6i"]
@@ -20,7 +21,6 @@ size = Vector2(1264, 112)
 size = Vector2(112, 704)
 
 [node name="Level" type="Node2D"]
-texture_filter = 1
 script = ExtResource("1_xb4v1")
 
 [node name="PlayerLight" type="PointLight2D" parent="."]
@@ -29,7 +29,7 @@ position = Vector2(515, 397)
 color = Color(0.8784058, 0.8784058, 0.8784058, 1)
 energy = 2.0
 texture = ExtResource("1_bovvr")
-texture_scale = 4.0
+texture_scale = 5.0
 script = ExtResource("2_b2cq8")
 
 [node name="Locations" type="Node" parent="."]
@@ -104,6 +104,12 @@ shape = SubResource("RectangleShape2D_d4w6o")
 position = Vector2(640, 1080)
 enabled = false
 
+[node name="SmilingMonster" type="Sprite2D" parent="Locations/Window"]
+texture_filter = 1
+position = Vector2(295, 30)
+scale = Vector2(8, 8)
+texture = ExtResource("9_qogh7")
+
 [node name="Terrain" type="Sprite2D" parent="Locations/Window"]
 self_modulate = Color(0.116820924, 0.118107855, 0.118107855, 1)
 texture_filter = 1
@@ -133,6 +139,9 @@ self_modulate = Color(0.116820924, 0.118107855, 0.118107855, 1)
 texture_filter = 1
 texture = ExtResource("12_xfk5q")
 
+[node name="CameraMap" parent="Locations/Computer" instance=ExtResource("11_7pb6i")]
+position = Vector2(454, 156)
+
 [node name="MovementAreas" type="Node" parent="Locations/Computer"]
 
 [node name="Top" type="Sprite2D" parent="Locations/Computer/MovementAreas"]
@@ -147,9 +156,6 @@ metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Locations/Computer/MovementAreas/Top/TopArrow"]
 shape = SubResource("RectangleShape2D_d4w6o")
-
-[node name="CameraMap" parent="Locations/Computer" instance=ExtResource("11_7pb6i")]
-position = Vector2(454, 156)
 
 [node name="CameraLocations" type="Node" parent="."]
 

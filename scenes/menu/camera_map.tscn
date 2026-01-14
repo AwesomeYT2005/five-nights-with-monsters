@@ -41,75 +41,159 @@ animations = [{
 texture_filter = 1
 script = ExtResource("1_3ufsm")
 
-[node name="Floor2Buttons" type="Node" parent="."]
-
-[node name="Floor1" type="Button" parent="Floor2Buttons"]
+[node name="Floor1Buttons" type="Control" parent="."]
 top_level = true
-offset_left = -66.0
-offset_top = 132.0
-offset_right = -30.0
-offset_bottom = 156.0
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Floor2" type="Button" parent="Floor1Buttons"]
+top_level = true
+layout_mode = 0
+offset_left = 2404.0
+offset_top = 1368.0
+offset_right = 2440.0
+offset_bottom = 1392.0
 theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 9
 
-[node name="Floor2" type="Button" parent="Floor2Buttons"]
+[node name="DiningRoom" type="Button" parent="Floor1Buttons"]
 top_level = true
-offset_left = 30.0
-offset_top = 132.0
-offset_right = 66.0
-offset_bottom = 156.0
+layout_mode = 0
+offset_left = 2356.0
+offset_top = 1224.0
+offset_right = 2392.0
+offset_bottom = 1248.0
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 9
+
+[node name="Kitchen" type="Button" parent="Floor1Buttons"]
+top_level = true
+layout_mode = 0
+offset_left = 2452.0
+offset_top = 1224.0
+offset_right = 2488.0
+offset_bottom = 1248.0
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 9
+
+[node name="Bedroom" type="Button" parent="Floor1Buttons"]
+top_level = true
+layout_mode = 0
+offset_left = 2452.0
+offset_top = 1308.0
+offset_right = 2488.0
+offset_bottom = 1332.0
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 9
+
+[node name="BackHall" type="Button" parent="Floor1Buttons"]
+top_level = true
+layout_mode = 0
+offset_left = 2356.0
+offset_top = 1308.0
+offset_right = 2392.0
+offset_bottom = 1332.0
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 9
+
+[node name="Staircase" type="Button" parent="Floor1Buttons"]
+top_level = true
+layout_mode = 0
+offset_left = 2260.0
+offset_top = 1224.0
+offset_right = 2296.0
+offset_bottom = 1248.0
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 9
+
+[node name="FrontHall" type="Button" parent="Floor1Buttons"]
+top_level = true
+layout_mode = 0
+offset_left = 2356.0
+offset_top = 1140.0
+offset_right = 2392.0
+offset_bottom = 1164.0
+
+[node name="LivingRoom" type="Button" parent="Floor1Buttons"]
+top_level = true
+layout_mode = 0
+offset_left = 2452.0
+offset_top = 1140.0
+offset_right = 2488.0
+offset_bottom = 1164.0
+
+[node name="Floor2Buttons" type="Control" parent="."]
+layout_mode = 3
+
+[node name="Floor1" type="Button" parent="Floor2Buttons"]
+top_level = true
+layout_mode = 0
+offset_left = 2308.0
+offset_top = 1368.0
+offset_right = 2344.0
+offset_bottom = 1392.0
 theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 9
 
 [node name="Corridor" type="Button" parent="Floor2Buttons"]
 top_level = true
-offset_left = -18.0
-offset_top = -12.0
-offset_right = 18.0
-offset_bottom = 12.0
+layout_mode = 0
+offset_left = 2356.0
+offset_top = 1224.0
+offset_right = 2392.0
+offset_bottom = 1248.0
 theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 9
 
 [node name="Bathroom" type="Button" parent="Floor2Buttons"]
 top_level = true
-offset_left = 78.0
-offset_top = -12.0
-offset_right = 114.0
-offset_bottom = 12.0
+layout_mode = 0
+offset_left = 2452.0
+offset_top = 1224.0
+offset_right = 2488.0
+offset_bottom = 1248.0
 theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 9
 
-[node name="Bedroom" type="Button" parent="Floor2Buttons"]
+[node name="Stash" type="Button" parent="Floor2Buttons"]
 top_level = true
-offset_left = 78.0
-offset_top = 72.0
-offset_right = 114.0
-offset_bottom = 96.0
+layout_mode = 0
+offset_left = 2452.0
+offset_top = 1308.0
+offset_right = 2488.0
+offset_bottom = 1332.0
 theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 9
 
 [node name="Landing" type="Button" parent="Floor2Buttons"]
 top_level = true
-offset_left = -18.0
-offset_top = 72.0
-offset_right = 18.0
-offset_bottom = 96.0
+layout_mode = 0
+offset_left = 2356.0
+offset_top = 1308.0
+offset_right = 2392.0
+offset_bottom = 1332.0
 theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 9
 
 [node name="Outside" type="Button" parent="Floor2Buttons"]
 top_level = true
-offset_left = -114.0
-offset_top = -12.0
-offset_right = -78.0
-offset_bottom = 12.0
+layout_mode = 0
+offset_left = 2260.0
+offset_top = 1224.0
+offset_right = 2296.0
+offset_bottom = 1248.0
 theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 9
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="CameraTree" type="AnimatedSprite2D" parent="."]
 scale = Vector2(6, 6)
 sprite_frames = SubResource("SpriteFrames_otvqr")
 animation = &"floor_1"
 autoplay = "floor_2"
+metadata/_edit_lock_ = true
 
+[connection signal="pressed" from="Floor1Buttons/Floor2" to="." method="_on_floor_2_pressed"]
+[connection signal="pressed" from="Floor1Buttons/FrontHall" to="." method="_on_front_hall_pressed"]
 [connection signal="pressed" from="Floor2Buttons/Floor1" to="." method="_on_floor_1_pressed"]

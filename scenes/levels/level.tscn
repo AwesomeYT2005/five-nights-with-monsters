@@ -157,14 +157,6 @@ metadata/_edit_group_ = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Locations/Computer/MovementAreas/Top/TopArrow"]
 shape = SubResource("RectangleShape2D_d4w6o")
 
-[node name="CameraLocations" type="Node" parent="."]
-
-[node name="Location1" type="Node2D" parent="CameraLocations"]
-position = Vector2(640, -360)
-
-[node name="Camera2D" type="Camera2D" parent="CameraLocations/Location1"]
-enabled = false
-
 [connection signal="mouse_entered" from="Locations/Desk/MovementAreas/Bottom/BottomArrow" to="." method="_on_bottom_arrow_mouse_entered"]
 [connection signal="mouse_entered" from="Locations/Desk/MovementAreas/Left/LeftArrow" to="." method="_on_left_arrow_mouse_entered"]
 [connection signal="pressed" from="Locations/Desk/MovementAreas/PCScreen" to="." method="_on_pc_screen_pressed"]

@@ -1,36 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://bmkq2vgkukpda"]
+[gd_scene load_steps=8 format=3 uid="uid://bmkq2vgkukpda"]
 
 [ext_resource type="Script" uid="uid://d811rkgde52m" path="res://scripts/levels/camera_map.gd" id="1_3ufsm"]
 [ext_resource type="Texture2D" uid="uid://d06t3nbxm1wq1" path="res://assets/images/gui/cameramap-sheet.png" id="1_ymivg"]
 [ext_resource type="Texture2D" uid="uid://d27ywksf7xl5e" path="res://assets/images/terrain/tempcorridor.png" id="2_tbhsj"]
-[ext_resource type="Texture2D" uid="uid://lnchrl35m2yx" path="res://assets/images/terrain/defaultblank.png" id="3_otvqr"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_otvqr"]
-atlas = ExtResource("2_tbhsj")
-region = Rect2(0, 0, 1280, 720)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_jd6pe"]
-atlas = ExtResource("3_otvqr")
-region = Rect2(0, 0, 1, 1)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_jd6pe"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_otvqr")
-}],
-"loop": true,
-"name": &"corridor",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_jd6pe")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ymivg"]
 atlas = ExtResource("1_ymivg")
@@ -70,12 +42,10 @@ animations = [{
 texture_filter = 1
 script = ExtResource("1_3ufsm")
 
-[node name="Terrain" type="AnimatedSprite2D" parent="."]
-self_modulate = Color(0.2, 0.7411765, 0.27058825, 1)
-position = Vector2(-595, -129)
-scale = Vector2(0.48316386, 0.8597222)
-sprite_frames = SubResource("SpriteFrames_jd6pe")
-autoplay = "default"
+[node name="Terrain" type="Sprite2D" parent="."]
+position = Vector2(-686, -81)
+scale = Vector2(0.73888886, 0.73888886)
+texture = ExtResource("2_tbhsj")
 
 [node name="Floor1Buttons" type="Control" parent="."]
 top_level = true

@@ -1,0 +1,122 @@
+[gd_scene load_steps=13 format=3 uid="uid://c6b8sb1s2sl7s"]
+
+[ext_resource type="Texture2D" uid="uid://si4xh4xhyfi2" path="res://assets/images/terrain/tempdesk.png" id="1_b2cq8"]
+[ext_resource type="Texture2D" uid="uid://bwd30dahgl8r3" path="res://assets/images/player/light/lightcircles.png" id="1_bovvr"]
+[ext_resource type="Script" uid="uid://ct2v3oagvfi4q" path="res://scripts/levels/level.gd" id="1_xb4v1"]
+[ext_resource type="Script" uid="uid://di40oa34y3jsj" path="res://scripts/player/player_light.gd" id="2_b2cq8"]
+[ext_resource type="Texture2D" uid="uid://c0o1jerode01a" path="res://assets/images/terrain/tempbackdoor.png" id="2_mbbpy"]
+[ext_resource type="Texture2D" uid="uid://bykr2oygdkevm" path="res://assets/images/gui/uparrow.png" id="5_urvlt"]
+[ext_resource type="Texture2D" uid="uid://uopgglmwg8fk" path="res://assets/images/gui/downarrow.png" id="6_d4w6o"]
+[ext_resource type="Texture2D" uid="uid://de0yhb2jb8qx" path="res://assets/images/gui/leftarrow.png" id="6_icy5c"]
+[ext_resource type="Texture2D" uid="uid://bscn8lweryrmf" path="res://assets/images/terrain/templeftwindow.png" id="9_rmjfq"]
+[ext_resource type="Texture2D" uid="uid://cqsw45gin3v8n" path="res://assets/images/gui/rightarrow.png" id="10_rmjfq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d4w6o"]
+size = Vector2(1264, 112)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7pb6i"]
+size = Vector2(112, 704)
+
+[node name="Level" type="Node2D"]
+texture_filter = 1
+script = ExtResource("1_xb4v1")
+
+[node name="PlayerLight" type="PointLight2D" parent="."]
+visibility_layer = 2
+position = Vector2(515, 397)
+color = Color(0.8784058, 0.8784058, 0.8784058, 1)
+energy = 2.0
+texture = ExtResource("1_bovvr")
+texture_scale = 4.0
+script = ExtResource("2_b2cq8")
+
+[node name="Locations" type="Node" parent="."]
+
+[node name="Desk" type="Camera2D" parent="Locations"]
+position = Vector2(640, 360)
+
+[node name="Terrain" type="Sprite2D" parent="Locations/Desk"]
+self_modulate = Color(0.116820924, 0.118107855, 0.118107855, 1)
+texture_filter = 1
+texture = ExtResource("1_b2cq8")
+
+[node name="MovementAreas" type="Node" parent="Locations/Desk"]
+
+[node name="Bottom" type="Sprite2D" parent="Locations/Desk/MovementAreas"]
+self_modulate = Color(1, 1, 1, 0.54901963)
+texture_filter = 1
+position = Vector2(640, 670)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("6_d4w6o")
+metadata/_edit_group_ = true
+
+[node name="BottomArrow" type="Area2D" parent="Locations/Desk/MovementAreas/Bottom"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Locations/Desk/MovementAreas/Bottom/BottomArrow"]
+shape = SubResource("RectangleShape2D_d4w6o")
+
+[node name="Left" type="Sprite2D" parent="Locations/Desk/MovementAreas"]
+self_modulate = Color(1, 1, 1, 0.54901963)
+texture_filter = 1
+position = Vector2(50, 360)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("6_icy5c")
+metadata/_edit_group_ = true
+
+[node name="LeftArrow" type="Area2D" parent="Locations/Desk/MovementAreas/Left"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Locations/Desk/MovementAreas/Left/LeftArrow"]
+shape = SubResource("RectangleShape2D_7pb6i")
+
+[node name="Backdoor" type="Camera2D" parent="Locations"]
+position = Vector2(1920, 360)
+enabled = false
+
+[node name="Terrain" type="Sprite2D" parent="Locations/Backdoor"]
+self_modulate = Color(0.116820924, 0.118107855, 0.118107855, 1)
+texture_filter = 1
+texture = ExtResource("2_mbbpy")
+
+[node name="MovementAreas" type="Node" parent="Locations/Backdoor"]
+
+[node name="Top" type="Sprite2D" parent="Locations/Backdoor/MovementAreas"]
+self_modulate = Color(1, 1, 1, 0.54901963)
+texture_filter = 1
+position = Vector2(1920, 50)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("5_urvlt")
+metadata/_edit_group_ = true
+
+[node name="TopArrow" type="Area2D" parent="Locations/Backdoor/MovementAreas/Top"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Locations/Backdoor/MovementAreas/Top/TopArrow"]
+shape = SubResource("RectangleShape2D_d4w6o")
+
+[node name="Window" type="Camera2D" parent="Locations"]
+position = Vector2(640, 1080)
+enabled = false
+
+[node name="Terrain" type="Sprite2D" parent="Locations/Window"]
+self_modulate = Color(0.116820924, 0.118107855, 0.118107855, 1)
+texture_filter = 1
+texture = ExtResource("9_rmjfq")
+
+[node name="MovementAreas" type="Node" parent="Locations/Window"]
+
+[node name="Right" type="Sprite2D" parent="Locations/Window/MovementAreas"]
+self_modulate = Color(1, 1, 1, 0.54509807)
+texture_filter = 1
+position = Vector2(1230, 1080)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("10_rmjfq")
+metadata/_edit_group_ = true
+
+[node name="RightArrow" type="Area2D" parent="Locations/Window/MovementAreas/Right"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Locations/Window/MovementAreas/Right/RightArrow"]
+shape = SubResource("RectangleShape2D_7pb6i")
+
+[connection signal="mouse_entered" from="Locations/Desk/MovementAreas/Bottom/BottomArrow" to="." method="_on_bottom_arrow_mouse_entered"]
+[connection signal="mouse_entered" from="Locations/Desk/MovementAreas/Left/LeftArrow" to="." method="_on_left_arrow_mouse_entered"]
+[connection signal="mouse_entered" from="Locations/Backdoor/MovementAreas/Top/TopArrow" to="." method="_on_top_arrow_mouse_entered"]
+[connection signal="mouse_entered" from="Locations/Window/MovementAreas/Right/RightArrow" to="." method="_on_right_arrow_mouse_entered"]

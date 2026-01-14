@@ -1,0 +1,115 @@
+[gd_scene load_steps=7 format=3 uid="uid://bmkq2vgkukpda"]
+
+[ext_resource type="Script" uid="uid://d811rkgde52m" path="res://scripts/levels/camera_map.gd" id="1_3ufsm"]
+[ext_resource type="Texture2D" uid="uid://d06t3nbxm1wq1" path="res://assets/images/gui/cameramap-sheet.png" id="1_ymivg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ymivg"]
+atlas = ExtResource("1_ymivg")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ufsm"]
+atlas = ExtResource("1_ymivg")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tbhsj"]
+atlas = ExtResource("1_ymivg")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_otvqr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ymivg")
+}],
+"loop": true,
+"name": &"floor_1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3ufsm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tbhsj")
+}],
+"loop": true,
+"name": &"floor_2",
+"speed": 2.5
+}]
+
+[node name="CameraMap" type="Node2D"]
+texture_filter = 1
+script = ExtResource("1_3ufsm")
+
+[node name="Floor2Buttons" type="Node" parent="."]
+
+[node name="Floor1" type="Button" parent="Floor2Buttons"]
+top_level = true
+offset_left = -66.0
+offset_top = 132.0
+offset_right = -30.0
+offset_bottom = 156.0
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 9
+
+[node name="Floor2" type="Button" parent="Floor2Buttons"]
+top_level = true
+offset_left = 30.0
+offset_top = 132.0
+offset_right = 66.0
+offset_bottom = 156.0
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 9
+
+[node name="Corridor" type="Button" parent="Floor2Buttons"]
+top_level = true
+offset_left = -18.0
+offset_top = -12.0
+offset_right = 18.0
+offset_bottom = 12.0
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 9
+
+[node name="Bathroom" type="Button" parent="Floor2Buttons"]
+top_level = true
+offset_left = 78.0
+offset_top = -12.0
+offset_right = 114.0
+offset_bottom = 12.0
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 9
+
+[node name="Bedroom" type="Button" parent="Floor2Buttons"]
+top_level = true
+offset_left = 78.0
+offset_top = 72.0
+offset_right = 114.0
+offset_bottom = 96.0
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 9
+
+[node name="Landing" type="Button" parent="Floor2Buttons"]
+top_level = true
+offset_left = -18.0
+offset_top = 72.0
+offset_right = 18.0
+offset_bottom = 96.0
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 9
+
+[node name="Outside" type="Button" parent="Floor2Buttons"]
+top_level = true
+offset_left = -114.0
+offset_top = -12.0
+offset_right = -78.0
+offset_bottom = 12.0
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 9
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(6, 6)
+sprite_frames = SubResource("SpriteFrames_otvqr")
+animation = &"floor_1"
+autoplay = "floor_2"
+
+[connection signal="pressed" from="Floor2Buttons/Floor1" to="." method="_on_floor_1_pressed"]

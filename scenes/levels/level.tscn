@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://c6b8sb1s2sl7s"]
+[gd_scene load_steps=15 format=3 uid="uid://c6b8sb1s2sl7s"]
 
 [ext_resource type="Texture2D" uid="uid://si4xh4xhyfi2" path="res://assets/images/terrain/tempdesk.png" id="1_b2cq8"]
 [ext_resource type="Texture2D" uid="uid://bwd30dahgl8r3" path="res://assets/images/player/light/lightcircles.png" id="1_bovvr"]
@@ -10,6 +10,8 @@
 [ext_resource type="Texture2D" uid="uid://de0yhb2jb8qx" path="res://assets/images/gui/leftarrow.png" id="6_icy5c"]
 [ext_resource type="Texture2D" uid="uid://bscn8lweryrmf" path="res://assets/images/terrain/templeftwindow.png" id="9_rmjfq"]
 [ext_resource type="Texture2D" uid="uid://cqsw45gin3v8n" path="res://assets/images/gui/rightarrow.png" id="10_rmjfq"]
+[ext_resource type="PackedScene" uid="uid://bmkq2vgkukpda" path="res://scenes/menu/camera_map.tscn" id="11_7pb6i"]
+[ext_resource type="Texture2D" uid="uid://bsp1gj5ny450k" path="res://assets/images/terrain/tempcomputerscreen.png" id="12_xfk5q"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d4w6o"]
 size = Vector2(1264, 112)
@@ -68,6 +70,12 @@ metadata/_edit_group_ = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Locations/Desk/MovementAreas/Left/LeftArrow"]
 shape = SubResource("RectangleShape2D_7pb6i")
 
+[node name="PCScreen" type="Button" parent="Locations/Desk/MovementAreas"]
+offset_left = 394.0
+offset_top = 344.0
+offset_right = 806.0
+offset_bottom = 567.0
+
 [node name="Backdoor" type="Camera2D" parent="Locations"]
 position = Vector2(1920, 360)
 enabled = false
@@ -116,7 +124,44 @@ metadata/_edit_group_ = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Locations/Window/MovementAreas/Right/RightArrow"]
 shape = SubResource("RectangleShape2D_7pb6i")
 
+[node name="Computer" type="Camera2D" parent="Locations"]
+position = Vector2(1920, 1080)
+enabled = false
+
+[node name="Terrain" type="Sprite2D" parent="Locations/Computer"]
+self_modulate = Color(0.116820924, 0.118107855, 0.118107855, 1)
+texture_filter = 1
+texture = ExtResource("12_xfk5q")
+
+[node name="MovementAreas" type="Node" parent="Locations/Computer"]
+
+[node name="Top" type="Sprite2D" parent="Locations/Computer/MovementAreas"]
+self_modulate = Color(1, 1, 1, 0.54901963)
+texture_filter = 1
+position = Vector2(1920, 770)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("5_urvlt")
+metadata/_edit_group_ = true
+
+[node name="TopArrow" type="Area2D" parent="Locations/Computer/MovementAreas/Top"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Locations/Computer/MovementAreas/Top/TopArrow"]
+shape = SubResource("RectangleShape2D_d4w6o")
+
+[node name="CameraMap" parent="Locations/Computer" instance=ExtResource("11_7pb6i")]
+position = Vector2(454, 156)
+
+[node name="CameraLocations" type="Node" parent="."]
+
+[node name="Location1" type="Node2D" parent="CameraLocations"]
+position = Vector2(640, -360)
+
+[node name="Camera2D" type="Camera2D" parent="CameraLocations/Location1"]
+enabled = false
+
 [connection signal="mouse_entered" from="Locations/Desk/MovementAreas/Bottom/BottomArrow" to="." method="_on_bottom_arrow_mouse_entered"]
 [connection signal="mouse_entered" from="Locations/Desk/MovementAreas/Left/LeftArrow" to="." method="_on_left_arrow_mouse_entered"]
+[connection signal="pressed" from="Locations/Desk/MovementAreas/PCScreen" to="." method="_on_pc_screen_pressed"]
 [connection signal="mouse_entered" from="Locations/Backdoor/MovementAreas/Top/TopArrow" to="." method="_on_top_arrow_mouse_entered"]
 [connection signal="mouse_entered" from="Locations/Window/MovementAreas/Right/RightArrow" to="." method="_on_right_arrow_mouse_entered"]
+[connection signal="mouse_entered" from="Locations/Computer/MovementAreas/Top/TopArrow" to="." method="_on_top_arrow_mouse_entered"]

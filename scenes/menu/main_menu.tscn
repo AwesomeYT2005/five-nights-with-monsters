@@ -10,7 +10,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
+[node name="BG" type="VideoStreamPlayer" parent="."]
 self_modulate = Color(0, 0.3770668, 0, 1)
 show_behind_parent = true
 layout_mode = 0

@@ -12,6 +12,8 @@ extends Node2D
 var doorman_spawned = false
 var doorman_knocked: int = 0
 
+signal player_dead
+
 func _ready() -> void:
 	
 	#Doorman spawning timer
@@ -24,9 +26,6 @@ func _process(_delta: float) -> void:
 		doorman.visible = true
 	else:
 		doorman.visible = false
-	if doorman_knocked == 4:
-		print("Player Dead!")
-		doorman_knocked+=1
 
 ###################################
 
@@ -96,6 +95,10 @@ func _on_knock_timer_timeout() -> void:
 
 func _on_knock_finished() -> void:
 	doorman_knocked += 1
-	d_knock.volume_db += 5.0
-	d_k_timer.wait_time = randi_range(5,8)
-	d_k_timer.start()
+	d_knock.volume_db = doorman_knocked * 5.0
+	if doorman_knocked < 3:
+		d_k_timer.wait_time = randi_range(5,8)
+		d_k_timer.start()
+	var cam = owner.get_viewport().get_camera_2d().name
+	if doorman_knocked == 3 and cam != "Wardrobe":
+		player_dead.emit("The Doorman")

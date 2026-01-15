@@ -4,9 +4,38 @@ extends Node2D
 @onready var floor_1_buttons: Control = $Floor1Buttons
 @onready var floor_2_buttons: Control = $Floor2Buttons
 @onready var terrain: AnimatedSprite2D = $Terrain
+@onready var doorman: Sprite2D = $Terrain/Enemies/Doorman/Doorman
+@onready var d_s_timer: Timer = $Terrain/EnemyTimers/Doorman/SpawnTimer
+@onready var d_knock: AudioStreamPlayer2D = $Terrain/Enemies/Doorman/Knock
+@onready var d_k_timer: Timer = $Terrain/EnemyTimers/Doorman/KnockTimer
+
+var doorman_spawned = false
+var doorman_knocked: int = 0
 
 func _ready() -> void:
-	floor_1_buttons.visible = false
+	
+	#Doorman spawning timer
+	
+	d_s_timer.wait_time = randi_range(30,60)
+	d_s_timer.start()
+
+func _process(_delta: float) -> void:
+	if terrain.animation == "corridor" and doorman_spawned:
+		doorman.visible = true
+	else:
+		doorman.visible = false
+	if doorman_knocked == 4:
+		print("Player Dead!")
+		doorman_knocked+=1
+
+###################################
+
+# SIGNALS
+
+###################################
+
+
+# All Camera Locations
 
 func _on_floor_1_pressed() -> void:
 	cam_tree.animation = "floor_1"
@@ -53,3 +82,20 @@ func _on_back_hall_pressed() -> void:
 
 func _on_living_room_pressed() -> void:
 	terrain.animation = "living_room"
+
+#Timers 
+
+func _on_doorman_timer_timeout() -> void:
+	doorman_spawned = true
+	d_knock.play(0.0)
+
+func _on_knock_timer_timeout() -> void:
+	d_knock.play(0.0)
+
+#Audio
+
+func _on_knock_finished() -> void:
+	doorman_knocked += 1
+	d_knock.volume_db += 5.0
+	d_k_timer.wait_time = randi_range(5,8)
+	d_k_timer.start()

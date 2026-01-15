@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://bmkq2vgkukpda"]
+[gd_scene load_steps=36 format=3 uid="uid://bmkq2vgkukpda"]
 
 [ext_resource type="Script" uid="uid://d811rkgde52m" path="res://scripts/levels/camera_map.gd" id="1_3ufsm"]
 [ext_resource type="Texture2D" uid="uid://d06t3nbxm1wq1" path="res://assets/images/gui/cameramap-sheet.png" id="1_ymivg"]
@@ -15,6 +15,8 @@
 [ext_resource type="Texture2D" uid="uid://81sj3h37mpl5" path="res://assets/images/terrain/tempstaircase.png" id="7_rfn3v"]
 [ext_resource type="Texture2D" uid="uid://b4qxy7an0u8vg" path="res://assets/images/terrain/tempkitchen.png" id="7_v7j8g"]
 [ext_resource type="Texture2D" uid="uid://wm7bx02ddy2p" path="res://assets/images/terrain/templivingroom.png" id="11_bfxgw"]
+[ext_resource type="PackedScene" uid="uid://c0qgc5ukri2ae" path="res://scenes/enemies/doorman.tscn" id="15_jku8s"]
+[ext_resource type="AudioStream" uid="uid://bsyqsvrgk7j8o" path="res://assets/sounds/enemies/door-knocking.mp3" id="16_jku8s"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0g3vh"]
 atlas = ExtResource("2_opuwt")
@@ -218,10 +220,36 @@ self_modulate = Color(0.2, 0.7411765, 0.27058825, 1)
 position = Vector2(-595, -129)
 scale = Vector2(0.48316386, 0.8597222)
 sprite_frames = SubResource("SpriteFrames_jd6pe")
-animation = &"living_room"
+animation = &"corridor"
 autoplay = "default"
+metadata/_edit_lock_ = true
+
+[node name="Enemies" type="Node2D" parent="Terrain"]
+
+[node name="Doorman" type="Node2D" parent="Terrain/Enemies"]
+
+[node name="Doorman" parent="Terrain/Enemies/Doorman" instance=ExtResource("15_jku8s")]
+visible = false
+self_modulate = Color(0, 4.781319, 0, 1)
+position = Vector2(-28.975586, 8.142141)
+scale = Vector2(9.087238, 5.943053)
+
+[node name="Knock" type="AudioStreamPlayer2D" parent="Terrain/Enemies/Doorman"]
+position = Vector2(-28.975464, 15.121155)
+scale = Vector2(10.396965, 6.0066633)
+stream = ExtResource("16_jku8s")
+
+[node name="EnemyTimers" type="Node" parent="Terrain"]
+
+[node name="Doorman" type="Node" parent="Terrain/EnemyTimers"]
+
+[node name="SpawnTimer" type="Timer" parent="Terrain/EnemyTimers/Doorman"]
+ignore_time_scale = true
+
+[node name="KnockTimer" type="Timer" parent="Terrain/EnemyTimers/Doorman"]
 
 [node name="Floor1Buttons" type="Control" parent="."]
+visible = false
 top_level = true
 layout_mode = 3
 anchors_preset = 0
@@ -375,6 +403,9 @@ animation = &"floor_1"
 autoplay = "floor_2"
 metadata/_edit_lock_ = true
 
+[connection signal="finished" from="Terrain/Enemies/Doorman/Knock" to="." method="_on_knock_finished"]
+[connection signal="timeout" from="Terrain/EnemyTimers/Doorman/SpawnTimer" to="." method="_on_doorman_timer_timeout"]
+[connection signal="timeout" from="Terrain/EnemyTimers/Doorman/KnockTimer" to="." method="_on_knock_timer_timeout"]
 [connection signal="pressed" from="Floor1Buttons/Floor2" to="." method="_on_floor_2_pressed"]
 [connection signal="pressed" from="Floor1Buttons/DiningRoom" to="." method="_on_dining_room_pressed"]
 [connection signal="pressed" from="Floor1Buttons/Kitchen" to="." method="_on_kitchen_pressed"]

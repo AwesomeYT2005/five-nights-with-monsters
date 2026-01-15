@@ -1,11 +1,34 @@
-[gd_scene load_steps=12 format=3 uid="uid://bmkq2vgkukpda"]
+[gd_scene load_steps=34 format=3 uid="uid://bmkq2vgkukpda"]
 
 [ext_resource type="Script" uid="uid://d811rkgde52m" path="res://scripts/levels/camera_map.gd" id="1_3ufsm"]
 [ext_resource type="Texture2D" uid="uid://d06t3nbxm1wq1" path="res://assets/images/gui/cameramap-sheet.png" id="1_ymivg"]
+[ext_resource type="Texture2D" uid="uid://ss5lhbik1625" path="res://assets/images/terrain/tempbathroom.png" id="2_jd6pe"]
+[ext_resource type="Texture2D" uid="uid://ba4kifu0u6h02" path="res://assets/images/terrain/tempbackhall.png" id="2_opuwt"]
 [ext_resource type="Texture2D" uid="uid://d27ywksf7xl5e" path="res://assets/images/terrain/tempcorridor.png" id="2_tbhsj"]
+[ext_resource type="Texture2D" uid="uid://bdywxyq7vyuim" path="res://assets/images/terrain/tempbedroom.png" id="3_1e3em"]
 [ext_resource type="Texture2D" uid="uid://lnchrl35m2yx" path="res://assets/images/terrain/defaultblank.png" id="3_otvqr"]
+[ext_resource type="Texture2D" uid="uid://jg1rwl1mqyr" path="res://assets/images/terrain/templanding.png" id="5_48g6w"]
+[ext_resource type="Texture2D" uid="uid://dxjpaatusuxd6" path="res://assets/images/terrain/tempdiningroom.png" id="5_fofqu"]
+[ext_resource type="Texture2D" uid="uid://ckfh6ktvhpuq4" path="res://assets/images/terrain/tempoutside.png" id="5_t4mo0"]
+[ext_resource type="Texture2D" uid="uid://dt4mp8irywrba" path="res://assets/images/terrain/tempstash.png" id="5_tfnv8"]
+[ext_resource type="Texture2D" uid="uid://cc4rlaq3ollbe" path="res://assets/images/terrain/tempfronthall.png" id="6_76upa"]
+[ext_resource type="Texture2D" uid="uid://81sj3h37mpl5" path="res://assets/images/terrain/tempstaircase.png" id="7_rfn3v"]
+[ext_resource type="Texture2D" uid="uid://b4qxy7an0u8vg" path="res://assets/images/terrain/tempkitchen.png" id="7_v7j8g"]
+[ext_resource type="Texture2D" uid="uid://wm7bx02ddy2p" path="res://assets/images/terrain/templivingroom.png" id="11_bfxgw"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_otvqr"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_0g3vh"]
+atlas = ExtResource("2_opuwt")
+region = Rect2(0, 0, 1280, 720)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tfnv8"]
+atlas = ExtResource("2_jd6pe")
+region = Rect2(0, 0, 1280, 720)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bfxgw"]
+atlas = ExtResource("3_1e3em")
+region = Rect2(0, 0, 1280, 720)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rfn3v"]
 atlas = ExtResource("2_tbhsj")
 region = Rect2(0, 0, 1280, 720)
 
@@ -13,11 +36,67 @@ region = Rect2(0, 0, 1280, 720)
 atlas = ExtResource("3_otvqr")
 region = Rect2(0, 0, 1, 1)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_v7j8g"]
+atlas = ExtResource("5_fofqu")
+region = Rect2(0, 0, 1280, 720)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1e3em"]
+atlas = ExtResource("6_76upa")
+region = Rect2(0, 0, 1280, 720)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_opuwt"]
+atlas = ExtResource("7_v7j8g")
+region = Rect2(0, 0, 1280, 720)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fofqu"]
+atlas = ExtResource("5_48g6w")
+region = Rect2(0, 0, 1280, 720)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jku8s"]
+atlas = ExtResource("11_bfxgw")
+region = Rect2(0, 0, 1280, 720)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_48g6w"]
+atlas = ExtResource("5_t4mo0")
+region = Rect2(0, 0, 1280, 720)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_76upa"]
+atlas = ExtResource("7_rfn3v")
+region = Rect2(0, 0, 1280, 720)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t4mo0"]
+atlas = ExtResource("5_tfnv8")
+region = Rect2(0, 0, 1280, 720)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_jd6pe"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_otvqr")
+"texture": SubResource("AtlasTexture_0g3vh")
+}],
+"loop": true,
+"name": &"back_hall",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tfnv8")
+}],
+"loop": true,
+"name": &"bathroom",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bfxgw")
+}],
+"loop": true,
+"name": &"bedroom",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rfn3v")
 }],
 "loop": true,
 "name": &"corridor",
@@ -29,6 +108,70 @@ animations = [{
 }],
 "loop": true,
 "name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v7j8g")
+}],
+"loop": true,
+"name": &"dining_room",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1e3em")
+}],
+"loop": true,
+"name": &"front_hall",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_opuwt")
+}],
+"loop": true,
+"name": &"kitchen",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fofqu")
+}],
+"loop": true,
+"name": &"landing",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jku8s")
+}],
+"loop": true,
+"name": &"living_room",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_48g6w")
+}],
+"loop": true,
+"name": &"outside",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_76upa")
+}],
+"loop": true,
+"name": &"staircase",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t4mo0")
+}],
+"loop": true,
+"name": &"stash",
 "speed": 5.0
 }]
 
@@ -75,6 +218,7 @@ self_modulate = Color(0.2, 0.7411765, 0.27058825, 1)
 position = Vector2(-595, -129)
 scale = Vector2(0.48316386, 0.8597222)
 sprite_frames = SubResource("SpriteFrames_jd6pe")
+animation = &"living_room"
 autoplay = "default"
 
 [node name="Floor1Buttons" type="Control" parent="."]
@@ -162,6 +306,7 @@ offset_bottom = 1164.0
 
 [node name="Floor2Buttons" type="Control" parent="."]
 layout_mode = 3
+anchors_preset = 0
 
 [node name="Floor1" type="Button" parent="Floor2Buttons"]
 top_level = true
@@ -231,5 +376,16 @@ autoplay = "floor_2"
 metadata/_edit_lock_ = true
 
 [connection signal="pressed" from="Floor1Buttons/Floor2" to="." method="_on_floor_2_pressed"]
+[connection signal="pressed" from="Floor1Buttons/DiningRoom" to="." method="_on_dining_room_pressed"]
+[connection signal="pressed" from="Floor1Buttons/Kitchen" to="." method="_on_kitchen_pressed"]
+[connection signal="pressed" from="Floor1Buttons/Bedroom" to="." method="_on_bedroom_pressed"]
+[connection signal="pressed" from="Floor1Buttons/BackHall" to="." method="_on_back_hall_pressed"]
+[connection signal="pressed" from="Floor1Buttons/Staircase" to="." method="_on_staircase_pressed"]
+[connection signal="pressed" from="Floor1Buttons/FrontHall" to="." method="_on_front_hall_pressed"]
+[connection signal="pressed" from="Floor1Buttons/LivingRoom" to="." method="_on_living_room_pressed"]
 [connection signal="pressed" from="Floor2Buttons/Floor1" to="." method="_on_floor_1_pressed"]
 [connection signal="pressed" from="Floor2Buttons/Corridor" to="." method="_on_corridor_pressed"]
+[connection signal="pressed" from="Floor2Buttons/Bathroom" to="." method="_on_bathroom_pressed"]
+[connection signal="pressed" from="Floor2Buttons/Stash" to="." method="_on_stash_pressed"]
+[connection signal="pressed" from="Floor2Buttons/Landing" to="." method="_on_landing_pressed"]
+[connection signal="pressed" from="Floor2Buttons/Outside" to="." method="_on_outside_pressed"]

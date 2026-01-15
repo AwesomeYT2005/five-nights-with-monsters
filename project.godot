@@ -24,3 +24,7 @@ window/size/viewport_height=720
 
 2d_render/layer_1="Light"
 2d_render/layer_2="Game"
+
+[rendering]
+
+textures/vram_compression/import_etc2_astc=true

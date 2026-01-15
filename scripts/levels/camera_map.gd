@@ -20,3 +20,36 @@ func _on_floor_2_pressed() -> void:
 
 func _on_corridor_pressed() -> void:
 	terrain.animation = "corridor"
+
+func _on_bathroom_pressed() -> void:
+	terrain.animation = "bathroom"
+
+func _on_stash_pressed() -> void:
+	terrain.animation = "stash"
+
+func _on_outside_pressed() -> void:
+	terrain.animation = "outside"
+
+func _on_landing_pressed() -> void:
+	terrain.animation = "landing"
+
+func _on_staircase_pressed() -> void:
+	terrain.animation = "staircase"
+
+func _on_dining_room_pressed() -> void:
+	terrain.animation = "dining_room"
+
+func _on_front_hall_pressed() -> void:
+	terrain.animation = "front_hall"
+
+func _on_kitchen_pressed() -> void:
+	terrain.animation = "kitchen"
+
+func _on_bedroom_pressed() -> void:
+	terrain.animation = "bedroom"
+
+func _on_back_hall_pressed() -> void:
+	terrain.animation = "back_hall"
+
+func _on_living_room_pressed() -> void:
+	terrain.animation = "living_room"

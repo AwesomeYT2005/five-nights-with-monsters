@@ -1,3 +1,5 @@
+DEVELOPED FOR THE <a href="https://itch.io/jam/horrorcore">CREEPY GAMES JAM</a>
+
 This read.me will be mainly used for recording asset credits and other important notes for the game. 
 
 Door Knocking Sound Effect by <a href="https://pixabay.com/users/soundreality-31074404/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=175163">Jurij</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=175163">Pixabay</a>

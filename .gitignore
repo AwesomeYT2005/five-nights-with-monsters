@@ -14,3 +14,7 @@ export_credentials.cfg
 .mono/
 data_*/
 mono_crash.*.json
+Versions/v0.0.1/HunkerDownv0.0.1.x86_64
+*.apk
+Versions/v0.0.1/HunkerDownv0.0.1.exe
+Versions/v0.0.1/HunkerDownv0.0.1.apk.idsig

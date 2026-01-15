@@ -71,6 +71,8 @@ func _process(_delta: float) -> void:
 		else:
 			chirrup_stage = 0
 			chirrup.position.y = chirrup_pos_y
+			c_s_timer.wait_time = randi_range(CHIRRUP_SPAWN_MIN,CHIRRUP_SPAWN_MAX)
+			c_s_timer.start()
 	else:
 		player_dead.emit("Chirrup")
 

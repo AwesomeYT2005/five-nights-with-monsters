@@ -1,6 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://00wigqddfsi1"]
+[gd_scene load_steps=3 format=3 uid="uid://00wigqddfsi1"]
 
 [ext_resource type="Script" uid="uid://20rgtdmbhfge" path="res://scripts/main.gd" id="1_o5qli"]
+[ext_resource type="PackedScene" uid="uid://f0dbx0fc5vdm" path="res://scenes/menu/black_screen.tscn" id="2_0wfyh"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_o5qli")
+
+[node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
+
+[node name="BlackScreen" parent="." instance=ExtResource("2_0wfyh")]
+visible = false
+
+[connection signal="finished" from="DeathSound" to="." method="_on_death_sound_finished"]

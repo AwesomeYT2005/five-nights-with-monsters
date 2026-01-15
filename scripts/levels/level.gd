@@ -3,6 +3,7 @@ extends Node2D
 @onready var player_light: PointLight2D = $PlayerLight
 @onready var locations: Node = $Locations
 @onready var level: Node2D = $"."
+@onready var backdoor: Sprite2D = $Locations/Backdoor/DoorArea/Door
 
 func _process(_delta: float) -> void:
 	var cam = get_viewport().get_camera_2d()
@@ -58,13 +59,14 @@ func _on_pc_screen_pressed() -> void:
 	get_viewport().get_camera_2d().enabled = false
 	locations.get_node("Computer").enabled = true
 
-func _on_camera_map_player_dead(enemy) -> void:
-	print("Player Dead")
-	print(enemy)
-	level.queue_free()
-
 func _on_wardrobe_pressed() -> void:
 	var cam = get_viewport().get_camera_2d()
 	if cam.name == "Window":
 		cam.enabled = false
 		locations.get_node("Wardrobe").enabled = true
+
+func _on_door_area_mouse_entered() -> void:
+	backdoor.visible = true
+
+func _on_door_area_mouse_exited() -> void:
+	backdoor.visible = false

@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://c6b8sb1s2sl7s"]
+[gd_scene load_steps=22 format=3 uid="uid://c6b8sb1s2sl7s"]
 
 [ext_resource type="Texture2D" uid="uid://si4xh4xhyfi2" path="res://assets/images/terrain/tempdesk.png" id="1_b2cq8"]
 [ext_resource type="Texture2D" uid="uid://bwd30dahgl8r3" path="res://assets/images/player/light/lightcircles.png" id="1_bovvr"]
@@ -8,13 +8,13 @@
 [ext_resource type="Texture2D" uid="uid://bykr2oygdkevm" path="res://assets/images/gui/uparrow.png" id="5_urvlt"]
 [ext_resource type="Texture2D" uid="uid://uopgglmwg8fk" path="res://assets/images/gui/downarrow.png" id="6_d4w6o"]
 [ext_resource type="Texture2D" uid="uid://de0yhb2jb8qx" path="res://assets/images/gui/leftarrow.png" id="6_icy5c"]
-[ext_resource type="Texture2D" uid="uid://bl67arsxs06yk" path="res://assets/images/enemies/smilingmonster.png" id="9_qogh7"]
 [ext_resource type="Texture2D" uid="uid://bscn8lweryrmf" path="res://assets/images/terrain/templeftwindow.png" id="9_rmjfq"]
 [ext_resource type="Texture2D" uid="uid://cqsw45gin3v8n" path="res://assets/images/gui/rightarrow.png" id="10_rmjfq"]
 [ext_resource type="PackedScene" uid="uid://bmkq2vgkukpda" path="res://scenes/menu/camera_map.tscn" id="11_7pb6i"]
 [ext_resource type="Texture2D" uid="uid://c3i2fll85ndib" path="res://assets/images/objects/wardrobe.png" id="12_8iyoh"]
 [ext_resource type="Texture2D" uid="uid://bsp1gj5ny450k" path="res://assets/images/terrain/tempcomputerscreen.png" id="12_xfk5q"]
-[ext_resource type="Texture2D" uid="uid://bkdricavhwxkp" path="res://assets/images/objects/wardrobehover.png" id="13_mq31s"]
+[ext_resource type="Texture2D" uid="uid://bkdricavhwxkp" path="res://assets/images/objects/wardrobehover.png" id="13_5mi6g"]
+[ext_resource type="Texture2D" uid="uid://1q7enm00toni" path="res://assets/images/gui/buttonoutline.png" id="13_mq31s"]
 [ext_resource type="Texture2D" uid="uid://cr7fqe3veytyh" path="res://assets/images/terrain/tempwardrobe.png" id="16_5mi6g"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d4w6o"]
@@ -22,6 +22,9 @@ size = Vector2(1264, 112)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7pb6i"]
 size = Vector2(112, 704)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5mi6g"]
+size = Vector2(231, 591)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_b8j7q"]
 atlas = ExtResource("16_5mi6g")
@@ -118,15 +121,23 @@ metadata/_edit_group_ = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Locations/Backdoor/MovementAreas/Top/TopArrow"]
 shape = SubResource("RectangleShape2D_d4w6o")
 
+[node name="DoorArea" type="Area2D" parent="Locations/Backdoor"]
+position = Vector2(-0.00012207031, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Locations/Backdoor/DoorArea"]
+position = Vector2(4.5, 20.5)
+shape = SubResource("RectangleShape2D_5mi6g")
+
+[node name="Door" type="Sprite2D" parent="Locations/Backdoor/DoorArea"]
+visible = false
+self_modulate = Color(0.42482373, 0.42482373, 0.42482373, 1)
+position = Vector2(5.000244, 20)
+scale = Vector2(1.8593764, 4.7500005)
+texture = ExtResource("13_mq31s")
+
 [node name="Window" type="Camera2D" parent="Locations"]
 position = Vector2(640, 1080)
 enabled = false
-
-[node name="SmilingMonster" type="Sprite2D" parent="Locations/Window"]
-texture_filter = 1
-position = Vector2(295, 30)
-scale = Vector2(8, 8)
-texture = ExtResource("9_qogh7")
 
 [node name="Terrain" type="Sprite2D" parent="Locations/Window"]
 self_modulate = Color(0.116820924, 0.118107855, 0.118107855, 1)
@@ -156,7 +167,7 @@ offset_top = -287.0
 offset_right = -81.0
 offset_bottom = 341.0
 texture_normal = ExtResource("12_8iyoh")
-texture_hover = ExtResource("13_mq31s")
+texture_hover = ExtResource("13_5mi6g")
 stretch_mode = 0
 
 [node name="Computer" type="Camera2D" parent="Locations"]
@@ -215,8 +226,9 @@ shape = SubResource("RectangleShape2D_d4w6o")
 [connection signal="mouse_entered" from="Locations/Desk/MovementAreas/Left/LeftArrow" to="." method="_on_left_arrow_mouse_entered"]
 [connection signal="pressed" from="Locations/Desk/MovementAreas/PCScreen" to="." method="_on_pc_screen_pressed"]
 [connection signal="mouse_entered" from="Locations/Backdoor/MovementAreas/Top/TopArrow" to="." method="_on_top_arrow_mouse_entered"]
+[connection signal="mouse_entered" from="Locations/Backdoor/DoorArea" to="." method="_on_door_area_mouse_entered"]
+[connection signal="mouse_exited" from="Locations/Backdoor/DoorArea" to="." method="_on_door_area_mouse_exited"]
 [connection signal="mouse_entered" from="Locations/Window/MovementAreas/Right/RightArrow" to="." method="_on_right_arrow_mouse_entered"]
 [connection signal="pressed" from="Locations/Window/Wardrobe" to="." method="_on_wardrobe_pressed"]
-[connection signal="player_dead" from="Locations/Computer/CameraMap" to="." method="_on_camera_map_player_dead"]
 [connection signal="mouse_entered" from="Locations/Computer/MovementAreas/Top/TopArrow" to="." method="_on_top_arrow_mouse_entered"]
 [connection signal="mouse_entered" from="Locations/Wardrobe/MovementAreas/Bottom/BottomArrow" to="." method="_on_bottom_arrow_mouse_entered"]

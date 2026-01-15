@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bdyu3yc1p54mv"]
+
+[ext_resource type="Texture2D" uid="uid://bl67arsxs06yk" path="res://assets/images/enemies/smilingmonster.png" id="1_xmc80"]
+
+[node name="Chirrup" type="Sprite2D"]
+z_index = -1
+texture_filter = 1
+texture = ExtResource("1_xmc80")

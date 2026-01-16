@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://bmkq2vgkukpda"]
+[gd_scene load_steps=41 format=3 uid="uid://bmkq2vgkukpda"]
 
 [ext_resource type="Script" uid="uid://d811rkgde52m" path="res://scripts/levels/camera_map.gd" id="1_3ufsm"]
 [ext_resource type="Texture2D" uid="uid://d06t3nbxm1wq1" path="res://assets/images/gui/cameramap-sheet.png" id="1_ymivg"]
@@ -180,6 +180,8 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mh6d6"]
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_ymivg"]
 atlas = ExtResource("1_ymivg")
 region = Rect2(0, 64, 64, 64)
@@ -251,13 +253,18 @@ volume_db = 10.0
 
 [node name="Chirrup" type="Node2D" parent="Terrain/Enemies"]
 
-[node name="Chirrup" parent="Terrain/Enemies/Chirrup" instance=ExtResource("18_navta")]
-position = Vector2(-1750, 300)
-scale = Vector2(13.282588, 7.3107834)
-
 [node name="Laugh" type="AudioStreamPlayer2D" parent="Terrain/Enemies/Chirrup"]
 stream = ExtResource("19_sio3c")
 volume_db = -10.0
+
+[node name="Chirrup" type="AnimatableBody2D" parent="Terrain/Enemies/Chirrup"]
+
+[node name="Chirrup" parent="Terrain/Enemies/Chirrup/Chirrup" instance=ExtResource("18_navta")]
+position = Vector2(-1750, 300)
+scale = Vector2(13.282588, 7.310783)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Terrain/Enemies/Chirrup/Chirrup"]
+shape = SubResource("RectangleShape2D_mh6d6")
 
 [node name="EnemyTimers" type="Node" parent="Terrain"]
 

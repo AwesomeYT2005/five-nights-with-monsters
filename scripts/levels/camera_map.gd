@@ -21,7 +21,7 @@ const DOORMAN_KNOCK_MAX: int = 5
 #Chirrup dependencies
 var chirrup_pos_x 
 var chirrup_pos_y
-@onready var chirrup: Sprite2D = $Terrain/Enemies/Chirrup/Chirrup
+@onready var chirrup: AnimatableBody2D = $Terrain/Enemies/Chirrup/Chirrup
 @onready var c_s_timer: Timer = $Terrain/EnemyTimers/Chirrup/SpawnTimer
 @onready var c_stop_timer: Timer = $Terrain/EnemyTimers/Chirrup/StoppingTimer
 @onready var c_laugh: AudioStreamPlayer2D = $Terrain/Enemies/Chirrup/Laugh
@@ -59,15 +59,18 @@ func _process(_delta: float) -> void:
 		d_footsteps.volume_db -= 0.02
 	else:
 		d_footsteps.volume_db = 10
+
+func _physics_process(delta: float) -> void:
 	
-	#Chirrup behaviour
-	if chirrup_stage == 1 and chirrup.position.y > -75 and c_stop_timer.is_stopped():
-		chirrup.position.y -= 0.10
-	elif chirrup_stage == 0 or !c_stop_timer.is_stopped():
+		#Chirrup behaviour
+	if chirrup_stage == 0 or !c_stop_timer.is_stopped():
 		pass
+	elif chirrup_stage == 1 and chirrup.position.y > -370 and c_stop_timer.is_stopped():
+		chirrup.position.y -= 40 * delta
 	elif chirrup_stage == 2:
+		window_area.monitoring = false
 		if chirrup.position.y < chirrup_pos_y:
-			chirrup.position.y += 0.2
+			chirrup.position.y += 80 * delta
 		else:
 			chirrup_stage = 0
 			chirrup.position.y = chirrup_pos_y
@@ -185,4 +188,3 @@ func _on_window_area_mouse_exited() -> void:
 
 func _on_stopping_timer_timeout() -> void:
 	chirrup_stage = 2
-	window_area.monitoring = false

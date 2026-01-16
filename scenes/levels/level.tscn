@@ -92,9 +92,9 @@ metadata/_edit_group_ = true
 shape = SubResource("RectangleShape2D_7pb6i")
 
 [node name="PCScreen" type="Button" parent="Locations/Desk/MovementAreas"]
-offset_left = 394.0
+offset_left = 390.0
 offset_top = 344.0
-offset_right = 806.0
+offset_right = 802.0
 offset_bottom = 567.0
 
 [node name="Backdoor" type="Camera2D" parent="Locations"]

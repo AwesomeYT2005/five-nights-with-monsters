@@ -382,7 +382,7 @@ one_shot = true
 [node name="Corruption" type="Node" parent="Terrain/EnemyTimers"]
 
 [node name="SpawnTimer" type="Timer" parent="Terrain/EnemyTimers/Corruption"]
-wait_time = 0.1
+wait_time = 7.0
 autostart = true
 
 [node name="Floor1Buttons" type="Control" parent="."]

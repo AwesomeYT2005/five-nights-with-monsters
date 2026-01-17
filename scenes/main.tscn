@@ -7,8 +7,15 @@
 script = ExtResource("1_o5qli")
 
 [node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
+volume_db = 10.0
+max_polyphony = 5
 
 [node name="BlackScreen" parent="." instance=ExtResource("2_0wfyh")]
 visible = false
 
+[node name="JumpscareTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
 [connection signal="finished" from="DeathSound" to="." method="_on_death_sound_finished"]
+[connection signal="timeout" from="JumpscareTimer" to="." method="_on_jumpscare_timer_timeout"]

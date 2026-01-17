@@ -4,8 +4,9 @@ extends Node2D
 @onready var floor_1_buttons: Control = $Floor1Buttons
 @onready var floor_2_buttons: Control = $Floor2Buttons
 @onready var terrain: AnimatedSprite2D = $Terrain
+var game_ready = false
 
-#Doorman dependencies
+#region Doorman Dependencies
 @onready var doorman: Sprite2D = $Terrain/Enemies/Doorman/Doorman
 @onready var d_s_timer: Timer = $Terrain/EnemyTimers/Doorman/SpawnTimer
 @onready var d_knock: AudioStreamPlayer2D = $Terrain/Enemies/Doorman/Knock
@@ -17,8 +18,9 @@ const DOORMAN_SPAWN_MIN: int = 20
 const DOORMAN_SPAWN_MAX: int = 45
 const DOORMAN_KNOCK_MIN: int = 2
 const DOORMAN_KNOCK_MAX: int = 5
+#endregion
 
-#Chirrup dependencies
+#region Chirrup Dependencies
 var chirrup_pos_x 
 var chirrup_pos_y
 @onready var chirrup: AnimatableBody2D = $Terrain/Enemies/Chirrup/Chirrup
@@ -29,9 +31,21 @@ var chirrup_pos_y
 var chirrup_stage: int = 0
 const CHIRRUP_SPAWN_MIN: int = 10
 const CHIRRUP_SPAWN_MAX: int = 20
+#endregion
 
-#Custom signals
+#region Corruption dependencies
+@onready var corruption: Node2D = $Terrain/Enemies/Corruption
+@onready var corruption_indicator: AnimatedSprite2D = $CorruptionIndicator
+@onready var beep: AudioStreamPlayer2D = $CorruptionIndicator/Beep
+@onready var woosh: AudioStreamPlayer2D = $Terrain/Enemies/Corruption/Woosh
+var corruption_scene = preload("res://scenes/enemies/corruption.tscn")
+var corruption_instance
+var corruption_total: int = 0
+#endregion
+
+#region Custom signals
 signal player_dead
+#endregion
 
 func _ready() -> void:
 
@@ -45,10 +59,13 @@ func _ready() -> void:
 
 	#Get Chirrup's starting position
 	chirrup_pos_y = chirrup.position.y
+	
+	#Game is ready
+	game_ready = true
 
 func _process(_delta: float) -> void:
 
-	# Doorman visible on monitor check
+	#Doorman visible on monitor check
 	if terrain.animation == "corridor" and doorman_spawned:
 		doorman.visible = true
 	else:
@@ -60,9 +77,17 @@ func _process(_delta: float) -> void:
 	else:
 		d_footsteps.volume_db = 10
 
-func _physics_process(delta: float) -> void:
+
+	#Camera Corruption Indicator
+	corruption_indicator.frame = corruption_total
 	
-		#Chirrup behaviour
+	#Corruption death
+	if corruption_total == 10:
+		player_dead.emit("The Corruption")
+
+func _physics_process(delta: float) -> void:
+
+	#Chirrup behaviour
 	if chirrup_stage == 0 or !c_stop_timer.is_stopped():
 		pass
 	elif chirrup_stage == 1 and chirrup.position.y > -370 and c_stop_timer.is_stopped():
@@ -79,20 +104,18 @@ func _physics_process(delta: float) -> void:
 	else:
 		player_dead.emit("Chirrup")
 
-###################################
+#region Functions
+func randb(boolean):
+	randomize()
+	var val = randi_range(0,1)
+	if val == 1:
+		boolean = true
+	elif val == 0:
+		boolean = false
+	return boolean
+#endregion
 
-# FUNCTIONS
-
-###################################
-
-
-
-###################################
-
-# ALL CAMERA LOCATIONS
-
-###################################
-
+#region Camera Locations
 func _on_floor_1_pressed() -> void:
 	cam_tree.animation = "floor_1"
 	floor_1_buttons.visible = true
@@ -122,10 +145,10 @@ func _on_staircase_pressed() -> void:
 	terrain.animation = "staircase"
 
 func _on_dining_room_pressed() -> void:
-	terrain.animation = "dining_room"
+	terrain.animation = "diningroom"
 
 func _on_front_hall_pressed() -> void:
-	terrain.animation = "front_hall"
+	terrain.animation = "fronthall"
 
 func _on_kitchen_pressed() -> void:
 	terrain.animation = "kitchen"
@@ -134,17 +157,13 @@ func _on_bedroom_pressed() -> void:
 	terrain.animation = "bedroom"
 
 func _on_back_hall_pressed() -> void:
-	terrain.animation = "back_hall"
+	terrain.animation = "backhall"
 
 func _on_living_room_pressed() -> void:
-	terrain.animation = "living_room"
+	terrain.animation = "livingroom"
+#endregion
 
-########################################
-
-# DOORMAN
-
-########################################
-
+#region Doorman Signals
 func _on_doorman_timer_timeout() -> void:
 	doorman_spawned = true
 	d_knock.play(0.0)
@@ -168,7 +187,9 @@ func _on_knock_finished() -> void:
 		d_knock.volume_db = 0
 		d_s_timer.wait_time = randi_range(DOORMAN_SPAWN_MIN,DOORMAN_SPAWN_MAX)
 		d_s_timer.start()
+#endregion
 
+#region Chirrup Signals
 ########################################
 
 # CHIRRUP
@@ -188,3 +209,46 @@ func _on_window_area_mouse_exited() -> void:
 
 func _on_stopping_timer_timeout() -> void:
 	chirrup_stage = 2
+#endregion
+
+#region Corruption Signals
+func _on_spawn_timer_timeout() -> void:
+	var chosen_room
+	var f: bool
+	for i in range(randi_range(0,3)):
+		f = randi_range(0,1)
+	var rooms: Array = []
+	if f ==  true:
+		var rooms_temp = floor_1_buttons.get_children()
+		rooms_temp.append_array(floor_2_buttons.get_children())
+		for i in rooms_temp:
+			rooms.append(i.name)
+		chosen_room = rooms.pick_random()
+		if chosen_room == "Floor1" or chosen_room == "Floor2":
+			pass
+		else:
+			corruption_instance = corruption_scene.instantiate()
+			corruption.add_child(corruption_instance)
+			corruption_instance.position = Vector2i(randi_range(-500,500),randi_range(-280,280))
+			var cor_name = corruption_instance.get_node("NAME")
+			cor_name.name = chosen_room
+			corruption_instance.tree_exiting.connect(_on_corruption_tree_exiting)
+			corruption_total += 1
+			beep.play(0.0)
+
+#Corruption viewing camera check
+func _on_terrain_animation_changed() -> void:
+	if game_ready == true:
+		for i in corruption.get_children():
+			if i.name == "Woosh":
+				pass
+			elif i.get_child(1).name.to_lower() == terrain.animation:
+				i.visible = true
+			else:
+				i.visible = false
+
+func _on_corruption_tree_exiting() -> void:
+	corruption_total -= 1
+	woosh.play()
+
+#endregion

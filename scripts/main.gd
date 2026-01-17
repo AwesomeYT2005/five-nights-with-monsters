@@ -6,6 +6,7 @@ extends Node
 const DOOR_OPEN_CLOSE = preload("res://assets/sounds/enemies/doorman/door_open_close.mp3")
 const WINDOW_SMASH = preload("res://assets/sounds/enemies/chirrup/window-smash.mp3")
 const LAUGH_DEATH = preload("res://assets/sounds/enemies/chirrup/laugh-death.mp3")
+const TOYS_DYING = preload("res://assets/sounds/enemies/corruption/toys_dying.mp3")
 var main_menu_scene = preload("res://scenes/menu/main_menu.tscn")
 var level_scene = preload("res://scenes/levels/level.tscn")
 
@@ -39,6 +40,8 @@ func _on_camera_map_player_dead(enemy) -> void:
 		death_sound.stream = DOOR_OPEN_CLOSE
 	if enemy == "Chirrup":
 		death_sound.stream = WINDOW_SMASH
+	if enemy == "The Corruption":
+		death_sound.stream = TOYS_DYING
 	var killtag = fade.get_node_or_null("TextureRect2/KillTag")
 	killtag.text = enemy
 	death_sound.play(0.0)

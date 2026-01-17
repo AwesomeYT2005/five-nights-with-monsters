@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://bmkq2vgkukpda"]
+[gd_scene load_steps=56 format=3 uid="uid://bmkq2vgkukpda"]
 
 [ext_resource type="Script" uid="uid://d811rkgde52m" path="res://scripts/levels/camera_map.gd" id="1_3ufsm"]
 [ext_resource type="Texture2D" uid="uid://d06t3nbxm1wq1" path="res://assets/images/gui/cameramap-sheet.png" id="1_ymivg"]
@@ -20,6 +20,9 @@
 [ext_resource type="AudioStream" uid="uid://bevxqrpycfu8q" path="res://assets/sounds/enemies/doorman/footsteps.mp3" id="17_dga73"]
 [ext_resource type="PackedScene" uid="uid://bdyu3yc1p54mv" path="res://scenes/enemies/chirrup.tscn" id="18_navta"]
 [ext_resource type="AudioStream" uid="uid://cydmojoeut0wq" path="res://assets/sounds/enemies/chirrup/laugh.mp3" id="19_sio3c"]
+[ext_resource type="Texture2D" uid="uid://lou004qi7psy" path="res://assets/images/gui/corruptionindicator-sheet.png" id="20_mh6d6"]
+[ext_resource type="AudioStream" uid="uid://df0e37fbm1yd3" path="res://assets/sounds/enemies/corruption/woosh.mp3" id="20_swkak"]
+[ext_resource type="AudioStream" uid="uid://bre188c6m37y5" path="res://assets/sounds/objects/computer/corruptionbeep.mp3" id="21_qumol"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0g3vh"]
 atlas = ExtResource("2_opuwt")
@@ -80,7 +83,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_0g3vh")
 }],
 "loop": true,
-"name": &"back_hall",
+"name": &"backhall",
 "speed": 5.0
 }, {
 "frames": [{
@@ -120,7 +123,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_v7j8g")
 }],
 "loop": true,
-"name": &"dining_room",
+"name": &"diningroom",
 "speed": 5.0
 }, {
 "frames": [{
@@ -128,7 +131,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_1e3em")
 }],
 "loop": true,
-"name": &"front_hall",
+"name": &"fronthall",
 "speed": 5.0
 }, {
 "frames": [{
@@ -152,7 +155,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_jku8s")
 }],
 "loop": true,
-"name": &"living_room",
+"name": &"livingroom",
 "speed": 5.0
 }, {
 "frames": [{
@@ -181,6 +184,91 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mh6d6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qumol"]
+atlas = ExtResource("20_mh6d6")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_swkak"]
+atlas = ExtResource("20_mh6d6")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_msoio"]
+atlas = ExtResource("20_mh6d6")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_byggb"]
+atlas = ExtResource("20_mh6d6")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tn4ej"]
+atlas = ExtResource("20_mh6d6")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1nnp8"]
+atlas = ExtResource("20_mh6d6")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h5cf7"]
+atlas = ExtResource("20_mh6d6")
+region = Rect2(128, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mtg05"]
+atlas = ExtResource("20_mh6d6")
+region = Rect2(192, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rtjnu"]
+atlas = ExtResource("20_mh6d6")
+region = Rect2(0, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nhoos"]
+atlas = ExtResource("20_mh6d6")
+region = Rect2(64, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x3atp"]
+atlas = ExtResource("20_mh6d6")
+region = Rect2(128, 128, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ndqm2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qumol")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_swkak")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_msoio")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_byggb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tn4ej")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1nnp8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h5cf7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mtg05")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rtjnu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nhoos")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x3atp")
+}],
+"loop": true,
+"name": &"default",
+"speed": 20.0
+}]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ymivg"]
 atlas = ExtResource("1_ymivg")
@@ -228,7 +316,7 @@ self_modulate = Color(0.2, 0.7411765, 0.27058825, 1)
 position = Vector2(-595, -129)
 scale = Vector2(0.48316386, 0.8597222)
 sprite_frames = SubResource("SpriteFrames_jd6pe")
-animation = &"corridor"
+animation = &"fronthall"
 autoplay = "default"
 metadata/_edit_lock_ = true
 
@@ -266,6 +354,12 @@ scale = Vector2(13.282588, 7.310783)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Terrain/Enemies/Chirrup/Chirrup"]
 shape = SubResource("RectangleShape2D_mh6d6")
 
+[node name="Corruption" type="Node2D" parent="Terrain/Enemies"]
+
+[node name="Woosh" type="AudioStreamPlayer2D" parent="Terrain/Enemies/Corruption"]
+stream = ExtResource("20_swkak")
+volume_db = 5.0
+
 [node name="EnemyTimers" type="Node" parent="Terrain"]
 
 [node name="Doorman" type="Node" parent="Terrain/EnemyTimers"]
@@ -284,6 +378,12 @@ one_shot = true
 [node name="StoppingTimer" type="Timer" parent="Terrain/EnemyTimers/Chirrup"]
 wait_time = 5.0
 one_shot = true
+
+[node name="Corruption" type="Node" parent="Terrain/EnemyTimers"]
+
+[node name="SpawnTimer" type="Timer" parent="Terrain/EnemyTimers/Corruption"]
+wait_time = 0.1
+autostart = true
 
 [node name="Floor1Buttons" type="Control" parent="."]
 visible = false
@@ -433,6 +533,15 @@ offset_bottom = 1248.0
 theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 9
 
+[node name="CorruptionIndicator" type="AnimatedSprite2D" parent="."]
+position = Vector2(7, -286)
+scale = Vector2(3.921875, 3.703125)
+sprite_frames = SubResource("SpriteFrames_ndqm2")
+
+[node name="Beep" type="AudioStreamPlayer2D" parent="CorruptionIndicator"]
+stream = ExtResource("21_qumol")
+volume_db = 10.0
+
 [node name="CameraTree" type="AnimatedSprite2D" parent="."]
 scale = Vector2(6, 6)
 sprite_frames = SubResource("SpriteFrames_otvqr")
@@ -449,11 +558,13 @@ monitoring = false
 position = Vector2(172.5, 153)
 shape = SubResource("RectangleShape2D_sio3c")
 
+[connection signal="animation_changed" from="Terrain" to="." method="_on_terrain_animation_changed"]
 [connection signal="finished" from="Terrain/Enemies/Doorman/Knock" to="." method="_on_knock_finished"]
 [connection signal="timeout" from="Terrain/EnemyTimers/Doorman/SpawnTimer" to="." method="_on_doorman_timer_timeout"]
 [connection signal="timeout" from="Terrain/EnemyTimers/Doorman/KnockTimer" to="." method="_on_knock_timer_timeout"]
 [connection signal="timeout" from="Terrain/EnemyTimers/Chirrup/SpawnTimer" to="." method="_on_chirrup_timer_timeout"]
 [connection signal="timeout" from="Terrain/EnemyTimers/Chirrup/StoppingTimer" to="." method="_on_stopping_timer_timeout"]
+[connection signal="timeout" from="Terrain/EnemyTimers/Corruption/SpawnTimer" to="." method="_on_spawn_timer_timeout"]
 [connection signal="pressed" from="Floor1Buttons/Floor2" to="." method="_on_floor_2_pressed"]
 [connection signal="pressed" from="Floor1Buttons/DiningRoom" to="." method="_on_dining_room_pressed"]
 [connection signal="pressed" from="Floor1Buttons/Kitchen" to="." method="_on_kitchen_pressed"]

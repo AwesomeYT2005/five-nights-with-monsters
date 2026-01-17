@@ -73,6 +73,8 @@ func enemy_jumpscare(enemy) -> void:
 		jumpscared = true
 		death_sound.stream = MONSTER_ROAR
 		death_sound.play(0.75)
+	else:
+		pass
 
 func _on_camera_map_player_dead(enemy) -> void:
 	fade.visible = true

@@ -4,6 +4,7 @@ extends Node2D
 @onready var floor_1_buttons: Control = $Floor1Buttons
 @onready var floor_2_buttons: Control = $Floor2Buttons
 @onready var terrain: AnimatedSprite2D = $Terrain
+@onready var mouse_area: Area2D = $MouseArea
 var game_ready = false
 
 #region Doorman Dependencies
@@ -14,10 +15,10 @@ var game_ready = false
 @onready var d_footsteps: AudioStreamPlayer2D = $Terrain/Enemies/Doorman/Footsteps
 var doorman_spawned = false
 var doorman_knocked: int = 0
-const DOORMAN_SPAWN_MIN: int = 20
-const DOORMAN_SPAWN_MAX: int = 45
-const DOORMAN_KNOCK_MIN: int = 2
-const DOORMAN_KNOCK_MAX: int = 5
+const DOORMAN_SPAWN_MIN: int = 20 #default = 20
+const DOORMAN_SPAWN_MAX: int = 45 #default = 45
+const DOORMAN_KNOCK_MIN: int = 2 #default = 2
+const DOORMAN_KNOCK_MAX: int = 5 #default = 5
 #endregion
 
 #region Chirrup Dependencies

@@ -79,7 +79,6 @@ func _physics_process(delta: float) -> void:
 					jumpscared = false
 					death_sound.stop()
 					death_sound.finished.emit()
-					
 
 func _on_play_button_pressed() -> void:
 	level_instance = level_scene.instantiate()
@@ -168,4 +167,3 @@ func _on_jumpscare_animation_finished() -> void:
 		death_sound.stream = DUBSTEP_GROWL
 		death_sound.play(0)
 		d_stage = 4
-		

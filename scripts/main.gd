@@ -10,6 +10,9 @@ const WINDOW_SMASH = preload("res://assets/sounds/enemies/chirrup/window-smash.m
 const LAUGH_DEATH = preload("res://assets/sounds/enemies/chirrup/laugh-death.mp3")
 const TOYS_DYING = preload("res://assets/sounds/enemies/corruption/toys_dying.mp3")
 const MONSTER_ROAR = preload("res://assets/sounds/enemies/chirrup/monster-roar.mp3")
+const RISING_TENSION = preload("res://assets/sounds/enemies/doorman/rising_tension.mp3")
+const DUBSTEP_GROWL = preload("res://assets/sounds/enemies/doorman/dubstep_growl.mp3")
+const DOORMAN_LINE = preload("res://assets/sounds/enemies/doorman/DoormanDeathLine.mp3")
 
 #endregion
 
@@ -27,24 +30,56 @@ var level_instance
 
 @onready var jumpscare_timer: Timer = $JumpscareTimer
 const chirrup_scare_scene = preload("res://scenes/enemies/chirrup.tscn")
+const doorman_scare_scene = preload("res://scenes/enemies/doorman_jumpscare.tscn")
 var jumpscare
 var jumpscared: bool = false
 var jumpscared_by
+var d_stage = 0
+var d_timer1_started = false
+var d_timer2_started = false
 
 #endregion
 
 func _ready() -> void:
 	load_main_menu()
 
+func _process(_delta) -> void:
+	if death_sound.stream == RISING_TENSION:
+		death_sound.volume_db += 0.01
+
 func _physics_process(delta: float) -> void:
 	if jumpscared == true:
 		var j = get_node_or_null(jumpscared_by)
-		j.scale *= Vector2(delta+1.05,delta+1.05)
-		j.position += Vector2(randi_range(-3,3),randi_range(-3,3))
-		if j.scale > Vector2(45,45):
-			jumpscared = false
-			death_sound.stop()
-			death_sound.finished.emit()
+		if jumpscared_by == "Chirrup":
+			j.scale *= Vector2(delta+1.05,delta+1.05)
+			j.position += Vector2(randi_range(-5,5),randi_range(-5,5))
+			if j.scale > Vector2(45,45):
+				jumpscared = false
+				death_sound.stop()
+				death_sound.finished.emit()
+		elif jumpscared_by == "The Doorman":
+			if j.position.x < 638 and d_stage == 0:
+				j.position.x += delta*160
+			elif j.position.x >= 638 and d_stage == 0:
+				d_stage = 1
+			elif d_stage == 1 and d_timer1_started == false:
+				d_timer1_started = true
+				await get_tree().create_timer(2,false,true).timeout
+				d_stage = 2
+				j.play("smile")
+			elif d_stage == 2 and d_timer2_started == false:
+				d_timer2_started = true
+				await get_tree().create_timer(2,false,true).timeout
+				d_stage = 3
+				j.play("eye")
+			elif d_stage == 4:
+				j.scale *= Vector2(delta+1.05,delta+1.05)
+				death_sound.volume_db = 20
+				if j.scale > Vector2(45,45):
+					jumpscared = false
+					death_sound.stop()
+					death_sound.finished.emit()
+					
 
 func _on_play_button_pressed() -> void:
 	level_instance = level_scene.instantiate()
@@ -73,6 +108,14 @@ func enemy_jumpscare(enemy) -> void:
 		jumpscared = true
 		death_sound.stream = MONSTER_ROAR
 		death_sound.play(0.75)
+	elif enemy == "The Doorman":
+		jumpscare = doorman_scare_scene.instantiate()
+		self.add_child(jumpscare)
+		jumpscare.animation_finished.connect(_on_jumpscare_animation_finished)
+		jumpscare.name = "The Doorman"
+		jumpscare.scale = Vector2(6,6)
+		jumpscare.position = Vector2(-252,373)
+		jumpscared = true
 	else:
 		pass
 
@@ -88,14 +131,26 @@ func _on_camera_map_player_dead(enemy) -> void:
 	var killtag = fade.get_node_or_null("Labels/TextureRect2/KillTag")
 	killtag.text = enemy
 	death_sound.play(0.0)
-	jumpscare_timer.start(randi_range(3,6))
+	jumpscare_timer.start(5)
 	level_instance.queue_free()
 
 func _on_death_sound_finished() -> void:
 	if death_sound.stream == WINDOW_SMASH:
 		pass
+	elif death_sound.stream == RISING_TENSION:
+		pass
+	elif death_sound.stream == DOOR_OPEN_CLOSE:
+		await get_tree().create_timer(2.5).timeout
+		death_sound.stream = RISING_TENSION
+		death_sound.volume_db = -10
+		death_sound.play(0.0)
 	elif death_sound.stream == MONSTER_ROAR:
 		death_sound.stream = LAUGH_DEATH
+		death_sound.play(0.0)
+		get_node(jumpscared_by).queue_free()
+		fade.get_node("Labels").visible = true
+	elif death_sound.stream == DUBSTEP_GROWL:
+		death_sound.stream = DOORMAN_LINE
 		death_sound.play(0.0)
 		get_node(jumpscared_by).queue_free()
 		fade.get_node("Labels").visible = true
@@ -106,3 +161,11 @@ func _on_death_sound_finished() -> void:
 
 func _on_jumpscare_timer_timeout() -> void:
 	enemy_jumpscare(jumpscared_by)
+
+func _on_jumpscare_animation_finished() -> void:
+	if jumpscare.animation == "eye":
+		await get_tree().create_timer(1).timeout
+		death_sound.stream = DUBSTEP_GROWL
+		death_sound.play(0)
+		d_stage = 4
+		

@@ -14,7 +14,6 @@ max_polyphony = 5
 visible = false
 
 [node name="JumpscareTimer" type="Timer" parent="."]
-wait_time = 5.0
 one_shot = true
 
 [connection signal="finished" from="DeathSound" to="." method="_on_death_sound_finished"]

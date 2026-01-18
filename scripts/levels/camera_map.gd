@@ -14,10 +14,10 @@ var game_ready = false
 @onready var d_footsteps: AudioStreamPlayer2D = $Terrain/Enemies/Doorman/Footsteps
 var doorman_spawned = false
 var doorman_knocked: int = 0
-const DOORMAN_SPAWN_MIN: int = 20
-const DOORMAN_SPAWN_MAX: int = 45
-const DOORMAN_KNOCK_MIN: int = 2
-const DOORMAN_KNOCK_MAX: int = 5
+const DOORMAN_SPAWN_MIN: int = 2 #default = 20
+const DOORMAN_SPAWN_MAX: int = 4 #default = 45
+const DOORMAN_KNOCK_MIN: int = 2 #default = 2
+const DOORMAN_KNOCK_MAX: int = 5 #default = 5
 #endregion
 
 #region Chirrup Dependencies

@@ -334,16 +334,16 @@ scale = Vector2(9.087238, 5.943053)
 position = Vector2(-28.975464, 15.121155)
 scale = Vector2(10.396965, 6.0066633)
 stream = ExtResource("16_jku8s")
+volume_db = 5.0
 
 [node name="Footsteps" type="AudioStreamPlayer2D" parent="Terrain/Enemies/Doorman"]
 stream = ExtResource("17_dga73")
-volume_db = 10.0
+volume_db = 15.0
 
 [node name="Chirrup" type="Node2D" parent="Terrain/Enemies"]
 
 [node name="Laugh" type="AudioStreamPlayer2D" parent="Terrain/Enemies/Chirrup"]
 stream = ExtResource("19_sio3c")
-volume_db = -10.0
 
 [node name="Chirrup" type="AnimatableBody2D" parent="Terrain/Enemies/Chirrup"]
 

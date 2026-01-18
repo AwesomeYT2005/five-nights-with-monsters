@@ -36,10 +36,10 @@ var jumpscared_by
 func _ready() -> void:
 	load_main_menu()
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if jumpscared == true:
 		var j = get_node_or_null(jumpscared_by)
-		j.scale *= Vector2(delta+1.01,delta+1.01)
+		j.scale *= Vector2(delta+1.05,delta+1.05)
 		j.position += Vector2(randi_range(-3,3),randi_range(-3,3))
 		if j.scale > Vector2(45,45):
 			jumpscared = false
@@ -68,7 +68,7 @@ func enemy_jumpscare(enemy) -> void:
 	if enemy == "Chirrup":
 		jumpscare = chirrup_scare_scene.instantiate()
 		self.add_child(jumpscare)
-		jumpscare.scale = Vector2(0.1,0.1)
+		jumpscare.scale = Vector2(0.25,0.25)
 		jumpscare.position = Vector2(643,357)
 		jumpscared = true
 		death_sound.stream = MONSTER_ROAR
@@ -86,7 +86,7 @@ func _on_camera_map_player_dead(enemy) -> void:
 	var killtag = fade.get_node_or_null("Labels/TextureRect2/KillTag")
 	killtag.text = enemy
 	death_sound.play(0.0)
-	jumpscare_timer.start()
+	jumpscare_timer.start(randi_range(3,6))
 	level_instance.queue_free()
 
 func _on_death_sound_finished() -> void:

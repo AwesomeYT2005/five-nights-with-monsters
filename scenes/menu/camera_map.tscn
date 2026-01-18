@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://bmkq2vgkukpda"]
+[gd_scene load_steps=57 format=3 uid="uid://bmkq2vgkukpda"]
 
 [ext_resource type="Script" uid="uid://d811rkgde52m" path="res://scripts/levels/camera_map.gd" id="1_3ufsm"]
 [ext_resource type="Texture2D" uid="uid://d06t3nbxm1wq1" path="res://assets/images/gui/cameramap-sheet.png" id="1_ymivg"]
@@ -307,6 +307,9 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sio3c"]
 size = Vector2(365, 326)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_swkak"]
+size = Vector2(0, 0)
+
 [node name="CameraMap" type="Node2D"]
 texture_filter = 1
 script = ExtResource("1_3ufsm")
@@ -400,6 +403,7 @@ offset_left = 2404.0
 offset_top = 1368.0
 offset_right = 2440.0
 offset_bottom = 1392.0
+tooltip_text = "Floor 2"
 theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 9
 
@@ -410,6 +414,7 @@ offset_left = 2356.0
 offset_top = 1224.0
 offset_right = 2392.0
 offset_bottom = 1248.0
+tooltip_text = "Dining Room"
 theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 9
 
@@ -420,6 +425,7 @@ offset_left = 2452.0
 offset_top = 1224.0
 offset_right = 2488.0
 offset_bottom = 1248.0
+tooltip_text = "Kitchen"
 theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 9
 
@@ -430,6 +436,7 @@ offset_left = 2452.0
 offset_top = 1308.0
 offset_right = 2488.0
 offset_bottom = 1332.0
+tooltip_text = "Bedroom"
 theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 9
 
@@ -440,6 +447,7 @@ offset_left = 2356.0
 offset_top = 1308.0
 offset_right = 2392.0
 offset_bottom = 1332.0
+tooltip_text = "Back Hall"
 theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 9
 
@@ -450,6 +458,7 @@ offset_left = 2260.0
 offset_top = 1224.0
 offset_right = 2296.0
 offset_bottom = 1248.0
+tooltip_text = "Staircase"
 theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 9
 
@@ -460,6 +469,7 @@ offset_left = 2356.0
 offset_top = 1140.0
 offset_right = 2392.0
 offset_bottom = 1164.0
+tooltip_text = "Front Hall"
 
 [node name="LivingRoom" type="Button" parent="Floor1Buttons"]
 top_level = true
@@ -468,6 +478,7 @@ offset_left = 2452.0
 offset_top = 1140.0
 offset_right = 2488.0
 offset_bottom = 1164.0
+tooltip_text = "Living Room"
 
 [node name="Floor2Buttons" type="Control" parent="."]
 layout_mode = 3
@@ -480,6 +491,7 @@ offset_left = 2308.0
 offset_top = 1368.0
 offset_right = 2344.0
 offset_bottom = 1392.0
+tooltip_text = "Floor 1"
 theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 9
 
@@ -490,6 +502,7 @@ offset_left = 2356.0
 offset_top = 1224.0
 offset_right = 2392.0
 offset_bottom = 1248.0
+tooltip_text = "Corridor"
 theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 9
 
@@ -500,6 +513,7 @@ offset_left = 2452.0
 offset_top = 1224.0
 offset_right = 2488.0
 offset_bottom = 1248.0
+tooltip_text = "Bathroom"
 theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 9
 
@@ -510,6 +524,7 @@ offset_left = 2452.0
 offset_top = 1308.0
 offset_right = 2488.0
 offset_bottom = 1332.0
+tooltip_text = "Stash"
 theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 9
 
@@ -520,6 +535,7 @@ offset_left = 2356.0
 offset_top = 1308.0
 offset_right = 2392.0
 offset_bottom = 1332.0
+tooltip_text = "Landing"
 theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 9
 
@@ -530,6 +546,7 @@ offset_left = 2260.0
 offset_top = 1224.0
 offset_right = 2296.0
 offset_bottom = 1248.0
+tooltip_text = "Outside"
 theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 9
 
@@ -557,6 +574,12 @@ monitoring = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WindowArea"]
 position = Vector2(172.5, 153)
 shape = SubResource("RectangleShape2D_sio3c")
+
+[node name="MouseArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MouseArea"]
+position = Vector2(-58, -27)
+shape = SubResource("RectangleShape2D_swkak")
 
 [connection signal="animation_changed" from="Terrain" to="." method="_on_terrain_animation_changed"]
 [connection signal="finished" from="Terrain/Enemies/Doorman/Knock" to="." method="_on_knock_finished"]

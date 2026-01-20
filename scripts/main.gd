@@ -2,6 +2,8 @@ extends Node
 
 @onready var fade: ColorRect = $BlackScreen
 @onready var death_sound: AudioStreamPlayer2D = $DeathSound
+@onready var win_timer: Timer = $WinTimer
+@onready var menu_music: AudioStreamPlayer = $MenuMusic
 
 #region Audio
 
@@ -46,6 +48,8 @@ func _ready() -> void:
 func _process(_delta) -> void:
 	if death_sound.stream == RISING_TENSION:
 		death_sound.volume_db += 0.01
+	if menu_music.get_playback_position() > 28.85 and !level_instance:
+		menu_music.play()
 
 func _physics_process(delta: float) -> void:
 	if jumpscared == true:
@@ -80,23 +84,37 @@ func _physics_process(delta: float) -> void:
 					death_sound.stop()
 					death_sound.finished.emit()
 
-func _on_play_button_pressed() -> void:
-	level_instance = level_scene.instantiate()
-	self.add_child(level_instance)
-	var cam_map = level_instance.get_node_or_null("Locations/Computer/CameraMap")
-	cam_map.player_dead.connect(_on_camera_map_player_dead)
-	main_menu_instance.queue_free()
-
-func _on_quit_button_pressed() -> void:
-	get_tree().quit()
+#region Functions
 
 func load_main_menu() -> void:
+	menu_music.play()
 	main_menu_instance = main_menu_scene.instantiate()
 	self.add_child(main_menu_instance)
 	var play_button = main_menu_instance.get_node_or_null("MarginContainer/VBoxContainer/Play")
 	var quit_button = main_menu_instance.get_node_or_null("MarginContainer/VBoxContainer/Quit")
+	await fadeanimation("in")
 	play_button.pressed.connect(_on_play_button_pressed)
 	quit_button.pressed.connect(_on_quit_button_pressed)
+
+func _on_quit_button_pressed() -> void:
+	get_tree().quit()
+
+func _on_play_button_pressed() -> void:
+	await fadeanimation("out")
+	level_instance = level_scene.instantiate()
+	self.add_child(level_instance)
+	level_instance.get_node("PlayerLight").visible = false
+	level_instance.process_mode = Node.PROCESS_MODE_DISABLED
+	var cam_map = level_instance.get_node_or_null("Locations/Computer/CameraMap")
+	cam_map.player_dead.connect(_on_camera_map_player_dead)
+	main_menu_instance.queue_free()
+	menu_music.stop()
+	await fadeanimation("in")
+	fade.visible = false
+	level_instance.get_node("PlayerLight").visible = true
+	level_instance.process_mode = Node.PROCESS_MODE_ALWAYS
+	win_timer.wait_time = 360.0 #Default: 360.0
+	win_timer.start()
 
 func enemy_jumpscare(enemy) -> void:
 	if enemy == "Chirrup":
@@ -118,7 +136,24 @@ func enemy_jumpscare(enemy) -> void:
 	else:
 		pass
 
+func player_won() -> void:
+	pass
+
+func fadeanimation(type) -> void:
+	if type == "in":
+		for i in range(100):
+			await get_tree().create_timer(0.01).timeout
+			fade.modulate.a -= 0.01
+	if type == "out":
+		for i in range(100):
+			await get_tree().create_timer(0.01).timeout
+			fade.modulate.a += 0.01
+#endregion
+
+#region Signals
+
 func _on_camera_map_player_dead(enemy) -> void:
+	win_timer.stop()
 	fade.visible = true
 	jumpscared_by = enemy
 	if enemy == "The Doorman":
@@ -167,3 +202,14 @@ func _on_jumpscare_animation_finished() -> void:
 		death_sound.stream = DUBSTEP_GROWL
 		death_sound.play(0)
 		d_stage = 4
+
+func _on_win_timer_timeout() -> void:
+	level_instance.queue_free()
+	fade.modulate.a = 1.0
+	fade.visible = true
+	fade.get_node("Win").visible = true
+	await get_tree().create_timer(5).timeout
+	fade.get_node("Win").visible = false
+	load_main_menu()
+
+#endregion

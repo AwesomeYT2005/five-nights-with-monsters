@@ -1,0 +1,93 @@
+[gd_scene load_steps=14 format=3 uid="uid://cu2jreybtsf2j"]
+
+[ext_resource type="Texture2D" uid="uid://dumie0k4c1xne" path="res://assets/images/enemies/pottygeist-sheet.png" id="1_ecp25"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ecp25"]
+atlas = ExtResource("1_ecp25")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3pgtw"]
+atlas = ExtResource("1_ecp25")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hyfjo"]
+atlas = ExtResource("1_ecp25")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3187t"]
+atlas = ExtResource("1_ecp25")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kkela"]
+atlas = ExtResource("1_ecp25")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_53ffh"]
+atlas = ExtResource("1_ecp25")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_igrjt"]
+atlas = ExtResource("1_ecp25")
+region = Rect2(128, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_02it4"]
+atlas = ExtResource("1_ecp25")
+region = Rect2(192, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f1oqn"]
+atlas = ExtResource("1_ecp25")
+region = Rect2(0, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vyj80"]
+atlas = ExtResource("1_ecp25")
+region = Rect2(64, 128, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_imge2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ecp25")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3pgtw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hyfjo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3187t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kkela")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_53ffh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_igrjt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_02it4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f1oqn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vyj80")
+}],
+"loop": true,
+"name": &"default",
+"speed": 20.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ps834"]
+
+[node name="Potty" type="Area2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0.37254903)
+sprite_frames = SubResource("SpriteFrames_imge2")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ps834")

@@ -34,7 +34,7 @@ const CHIRRUP_SPAWN_MIN: int = 10
 const CHIRRUP_SPAWN_MAX: int = 20
 #endregion
 
-#region Corruption dependencies
+#region Corruption Dependencies
 @onready var corruption: Node2D = $Terrain/Enemies/Corruption
 @onready var corruption_indicator: AnimatedSprite2D = $CorruptionIndicator
 @onready var beep: AudioStreamPlayer2D = $CorruptionIndicator/Beep
@@ -42,6 +42,16 @@ const CHIRRUP_SPAWN_MAX: int = 20
 var corruption_scene = preload("res://scenes/enemies/corruption.tscn")
 var corruption_instance
 var corruption_total: int = 0
+#endregion
+
+#region Pottygeist Dependencies
+
+var potty_scene = preload("res://scenes/enemies/potty.tscn")
+var potty_instance
+@onready var p_s_timer: Timer = $Terrain/EnemyTimers/Pottygeist/SpawnTimer
+const POTTY_SPAWN_MIN = 7
+const POTTY_SPAWN_MAX = 10
+
 #endregion
 
 #region Custom signals
@@ -57,6 +67,10 @@ func _ready() -> void:
 	#Chirrup spawning timer
 	c_s_timer.wait_time = randi_range(CHIRRUP_SPAWN_MIN,CHIRRUP_SPAWN_MAX)
 	c_s_timer.start()
+	
+	#Pottygeist spawning timer
+	p_s_timer.wait_time = randi_range(POTTY_SPAWN_MIN,POTTY_SPAWN_MAX)
+	p_s_timer.start()
 
 	#Get Chirrup's starting position
 	chirrup_pos_y = chirrup.position.y
@@ -64,7 +78,7 @@ func _ready() -> void:
 	#Game is ready
 	game_ready = true
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 
 	#Doorman visible on monitor check
 	if terrain.animation == "corridor" and doorman_spawned:
@@ -78,13 +92,20 @@ func _process(_delta: float) -> void:
 	else:
 		d_footsteps.volume_db = 10
 
-
 	#Camera Corruption Indicator
 	corruption_indicator.frame = corruption_total
 	
 	#Corruption death
 	if corruption_total == 10:
 		player_dead.emit("The Corruption")
+
+	#Pottygeist movement
+	if potty_instance:
+		potty_instance.look_at(get_viewport().get_camera_2d().get_global_mouse_position())
+		potty_instance.global_rotation += PI/2
+		var angle = get_angle_to(get_global_mouse_position())
+		var direction = Vector2(cos(angle),sin(angle)).normalized()
+		potty_instance.position += direction * 150 * delta
 
 func _physics_process(delta: float) -> void:
 
@@ -251,5 +272,15 @@ func _on_terrain_animation_changed() -> void:
 func _on_corruption_tree_exiting() -> void:
 	corruption_total -= 1
 	woosh.play()
+
+#endregion
+
+#region Pottygeist Signals
+
+func _on_potty_spawn_timer_timeout() -> void:
+	potty_instance = potty_scene.instantiate()
+	#potty_instance.position.x = -100
+	#potty_instance.position.y = -1200
+	self.add_child(potty_instance)
 
 #endregion

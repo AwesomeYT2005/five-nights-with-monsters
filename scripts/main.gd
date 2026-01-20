@@ -136,9 +136,6 @@ func enemy_jumpscare(enemy) -> void:
 	else:
 		pass
 
-func player_won() -> void:
-	pass
-
 func fadeanimation(type) -> void:
 	if type == "in":
 		for i in range(100):

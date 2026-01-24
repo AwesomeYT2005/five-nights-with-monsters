@@ -44,6 +44,14 @@ var corruption_instance
 var corruption_total: int = 0
 #endregion
 
+#region Phantom Dependencies
+var phantom_scene: PackedScene = preload("res://scenes/enemies/phantom.tscn") 
+var phantom_instance
+@onready var phantom: Node2D = $Terrain/Enemies/Phantom
+@onready var phantom_s_timer: Timer = $Terrain/EnemyTimers/Phantom/SpawnTimer
+@onready var phantom_k_timer: Timer = $Terrain/EnemyTimers/Phantom/KillTimer
+#endregion
+
 #region Custom signals
 signal player_dead
 #endregion
@@ -60,7 +68,10 @@ func _ready() -> void:
 
 	#Get Chirrup's starting position
 	chirrup_pos_y = chirrup.position.y
-	
+
+	#Phantom spawning timer
+	phantom_s_timer.start()
+
 	#Game is ready
 	game_ready = true
 
@@ -191,12 +202,6 @@ func _on_knock_finished() -> void:
 #endregion
 
 #region Chirrup Signals
-########################################
-
-# CHIRRUP
-
-########################################
-
 func _on_chirrup_timer_timeout() -> void:
 	chirrup_stage = 1
 	c_laugh.play()
@@ -253,3 +258,8 @@ func _on_corruption_tree_exiting() -> void:
 	woosh.play()
 
 #endregion
+
+#region Phantom Signals
+func _on_phantom_spawn_timer_timeout() -> void:
+	phantom_instance = phantom_scene.instantiate()
+	phantom.add_child(phantom_instance)

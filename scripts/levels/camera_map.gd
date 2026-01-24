@@ -49,7 +49,6 @@ var phantom_scene: PackedScene = preload("res://scenes/enemies/phantom.tscn")
 var phantom_instance
 @onready var phantom: Node2D = $Terrain/Enemies/Phantom
 @onready var phantom_s_timer: Timer = $Terrain/EnemyTimers/Phantom/SpawnTimer
-@onready var phantom_k_timer: Timer = $Terrain/EnemyTimers/Phantom/KillTimer
 #endregion
 
 #region Custom signals
@@ -96,6 +95,10 @@ func _process(_delta: float) -> void:
 	#Corruption death
 	if corruption_total == 10:
 		player_dead.emit("The Corruption")
+	
+	#Phantom behaviour
+	if phantom_instance:
+		pass
 
 func _physics_process(delta: float) -> void:
 
@@ -263,3 +266,4 @@ func _on_corruption_tree_exiting() -> void:
 func _on_phantom_spawn_timer_timeout() -> void:
 	phantom_instance = phantom_scene.instantiate()
 	phantom.add_child(phantom_instance)
+	phantom_instance.modulate.a = 0.0

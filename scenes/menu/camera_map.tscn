@@ -397,9 +397,6 @@ wait_time = 20.0
 one_shot = true
 autostart = true
 
-[node name="KillTimer" type="Timer" parent="Terrain/EnemyTimers/Phantom"]
-one_shot = true
-
 [node name="Floor1Buttons" type="Control" parent="."]
 visible = false
 top_level = true

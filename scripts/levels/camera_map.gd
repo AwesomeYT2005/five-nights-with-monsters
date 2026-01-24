@@ -101,11 +101,11 @@ func _process(delta: float) -> void:
 
 	#Pottygeist movement
 	if potty_instance:
-		potty_instance.look_at(get_viewport().get_camera_2d().get_global_mouse_position())
+		potty_instance.look_at(get_global_mouse_position())
 		potty_instance.global_rotation += PI/2
 		var angle = get_angle_to(get_global_mouse_position())
 		var direction = Vector2(cos(angle),sin(angle)).normalized()
-		potty_instance.position += direction * 150 * delta
+		potty_instance.global_position += direction * 150 * delta
 
 func _physics_process(delta: float) -> void:
 

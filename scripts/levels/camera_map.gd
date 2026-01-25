@@ -6,6 +6,7 @@ extends Node2D
 @onready var terrain: AnimatedSprite2D = $Terrain
 @onready var mouse_area: Area2D = $MouseArea
 var game_ready = false
+var last_viewport: String
 
 #region Doorman Dependencies
 @onready var doorman: Sprite2D = $Terrain/Enemies/Doorman/Doorman
@@ -73,6 +74,7 @@ func _ready() -> void:
 
 	#Game is ready
 	game_ready = true
+	last_viewport = get_viewport().get_camera_2d().name
 
 func _process(_delta: float) -> void:
 
@@ -88,7 +90,6 @@ func _process(_delta: float) -> void:
 	else:
 		d_footsteps.volume_db = 10
 
-
 	#Camera Corruption Indicator
 	corruption_indicator.frame = corruption_total
 	
@@ -97,8 +98,12 @@ func _process(_delta: float) -> void:
 		player_dead.emit("The Corruption")
 	
 	#Phantom behaviour
-	if phantom_instance:
-		pass
+	if phantom_instance and !check_viewport_camera_changed():
+		phantom_instance.modulate.a += 0.00001
+		if phantom_instance.modulate.a == 1:
+			player_dead.emit("The Phantom")
+	elif phantom_instance and check_viewport_camera_changed():
+		phantom_instance.modulate.a = 0.0
 
 func _physics_process(delta: float) -> void:
 
@@ -120,14 +125,13 @@ func _physics_process(delta: float) -> void:
 		player_dead.emit("Chirrup")
 
 #region Functions
-func randb(boolean):
-	randomize()
-	var val = randi_range(0,1)
-	if val == 1:
-		boolean = true
-	elif val == 0:
-		boolean = false
-	return boolean
+func check_viewport_camera_changed():
+	var actual_viewport: String = get_viewport().get_camera_2d().name
+	if actual_viewport != last_viewport:
+		last_viewport = actual_viewport
+		return true
+	else:
+		return false
 #endregion
 
 #region Camera Locations

@@ -42,6 +42,10 @@ var d_timer2_started = false
 
 #endregion
 
+#region Custom Signals
+signal fade_finished
+#endregion
+
 func _ready() -> void:
 	load_main_menu()
 
@@ -136,7 +140,7 @@ func enemy_jumpscare(enemy) -> void:
 	else:
 		pass
 
-func fadeanimation(type) -> void:
+func fadeanimation(type):
 	if type == "in":
 		for i in range(100):
 			await get_tree().create_timer(0.01).timeout
@@ -152,6 +156,7 @@ func fadeanimation(type) -> void:
 func _on_camera_map_player_dead(enemy) -> void:
 	win_timer.stop()
 	fade.visible = true
+	fade.modulate.a = 1.0
 	jumpscared_by = enemy
 	if enemy == "The Doorman":
 		death_sound.stream = DOOR_OPEN_CLOSE
@@ -159,6 +164,8 @@ func _on_camera_map_player_dead(enemy) -> void:
 		death_sound.stream = WINDOW_SMASH
 	if enemy == "The Corruption":
 		death_sound.stream = TOYS_DYING
+	if enemy == "The Phantom":
+		pass
 	var killtag = fade.get_node_or_null("Labels/TextureRect2/KillTag")
 	killtag.text = enemy
 	death_sound.play(0.0)

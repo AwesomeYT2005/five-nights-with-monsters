@@ -1,16 +1,16 @@
 [gd_scene load_steps=4 format=3 uid="uid://cybp2s5wroj5d"]
 
-[ext_resource type="Texture2D" uid="uid://8hm136ga162b" path="res://assets/images/enemies/tempphantom.png" id="1_4xxuh"]
+[ext_resource type="Texture2D" uid="uid://k5ex1twu6c8o" path="res://assets/images/enemies/phantom.png" id="1_4xxuh"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_0gj4p"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_xraoj"]
 atlas = ExtResource("1_4xxuh")
-region = Rect2(0, 0, 64, 64)
+region = Rect2(0, 0, 128, 128)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_tymo3"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_0gj4p")
+"texture": SubResource("AtlasTexture_xraoj")
 }],
 "loop": true,
 "name": &"default",
@@ -19,6 +19,6 @@ animations = [{
 
 [node name="Phantom" type="AnimatedSprite2D"]
 texture_filter = 1
-scale = Vector2(25, 10)
+scale = Vector2(12.5, 5)
 sprite_frames = SubResource("SpriteFrames_tymo3")
 autoplay = "default"

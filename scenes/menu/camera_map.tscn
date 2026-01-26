@@ -363,6 +363,8 @@ shape = SubResource("RectangleShape2D_mh6d6")
 stream = ExtResource("20_swkak")
 volume_db = 5.0
 
+[node name="Phantom" type="Node2D" parent="Terrain/Enemies"]
+
 [node name="EnemyTimers" type="Node" parent="Terrain"]
 
 [node name="Doorman" type="Node" parent="Terrain/EnemyTimers"]
@@ -386,6 +388,13 @@ one_shot = true
 
 [node name="SpawnTimer" type="Timer" parent="Terrain/EnemyTimers/Corruption"]
 wait_time = 7.0
+autostart = true
+
+[node name="Phantom" type="Node" parent="Terrain/EnemyTimers"]
+
+[node name="SpawnTimer" type="Timer" parent="Terrain/EnemyTimers/Phantom"]
+wait_time = 20.0
+one_shot = true
 autostart = true
 
 [node name="Floor1Buttons" type="Control" parent="."]
@@ -588,6 +597,7 @@ shape = SubResource("RectangleShape2D_swkak")
 [connection signal="timeout" from="Terrain/EnemyTimers/Chirrup/SpawnTimer" to="." method="_on_chirrup_timer_timeout"]
 [connection signal="timeout" from="Terrain/EnemyTimers/Chirrup/StoppingTimer" to="." method="_on_stopping_timer_timeout"]
 [connection signal="timeout" from="Terrain/EnemyTimers/Corruption/SpawnTimer" to="." method="_on_spawn_timer_timeout"]
+[connection signal="timeout" from="Terrain/EnemyTimers/Phantom/SpawnTimer" to="." method="_on_phantom_spawn_timer_timeout"]
 [connection signal="pressed" from="Floor1Buttons/Floor2" to="." method="_on_floor_2_pressed"]
 [connection signal="pressed" from="Floor1Buttons/DiningRoom" to="." method="_on_dining_room_pressed"]
 [connection signal="pressed" from="Floor1Buttons/Kitchen" to="." method="_on_kitchen_pressed"]

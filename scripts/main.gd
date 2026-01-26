@@ -42,6 +42,10 @@ var d_timer2_started = false
 
 #endregion
 
+#region Custom Signals
+signal fade_finished
+#endregion
+
 func _ready() -> void:
 	load_main_menu()
 
@@ -87,6 +91,7 @@ func _physics_process(delta: float) -> void:
 #region Functions
 
 func load_main_menu() -> void:
+	death_sound.stream = null
 	menu_music.play()
 	main_menu_instance = main_menu_scene.instantiate()
 	self.add_child(main_menu_instance)
@@ -94,7 +99,9 @@ func load_main_menu() -> void:
 	var quit_button = main_menu_instance.get_node_or_null("MarginContainer/VBoxContainer/Quit")
 	await fadeanimation("in")
 	play_button.pressed.connect(_on_play_button_pressed)
-	quit_button.pressed.connect(_on_quit_button_pressed)
+	if OS.get_name() != "HTML5":
+		quit_button.pressed.connect(_on_quit_button_pressed)
+		push_warning("Button connected!")
 
 func _on_quit_button_pressed() -> void:
 	get_tree().quit()
@@ -119,6 +126,7 @@ func _on_play_button_pressed() -> void:
 func enemy_jumpscare(enemy) -> void:
 	if enemy == "Chirrup":
 		jumpscare = chirrup_scare_scene.instantiate()
+		jumpscare.z_index = 5
 		self.add_child(jumpscare)
 		jumpscare.scale = Vector2(0.25,0.25)
 		jumpscare.position = Vector2(643,357)
@@ -127,16 +135,21 @@ func enemy_jumpscare(enemy) -> void:
 		death_sound.play(0.75)
 	elif enemy == "The Doorman":
 		jumpscare = doorman_scare_scene.instantiate()
+		jumpscare.z_index = 5
 		self.add_child(jumpscare)
 		jumpscare.animation_finished.connect(_on_jumpscare_animation_finished)
 		jumpscare.name = "The Doorman"
 		jumpscare.scale = Vector2(6,6)
 		jumpscare.position = Vector2(-252,373)
 		jumpscared = true
+	elif enemy == "The Phantom":
+		load_main_menu()
+		fade.visible = false
+		fade.get_node("Labels").visible = false
 	else:
 		pass
 
-func fadeanimation(type) -> void:
+func fadeanimation(type):
 	if type == "in":
 		for i in range(100):
 			await get_tree().create_timer(0.01).timeout
@@ -152,6 +165,7 @@ func fadeanimation(type) -> void:
 func _on_camera_map_player_dead(enemy) -> void:
 	win_timer.stop()
 	fade.visible = true
+	fade.modulate.a = 1.0
 	jumpscared_by = enemy
 	if enemy == "The Doorman":
 		death_sound.stream = DOOR_OPEN_CLOSE
@@ -159,6 +173,8 @@ func _on_camera_map_player_dead(enemy) -> void:
 		death_sound.stream = WINDOW_SMASH
 	if enemy == "The Corruption":
 		death_sound.stream = TOYS_DYING
+	if enemy == "The Phantom":
+		fade.get_node("Labels").visible = true
 	var killtag = fade.get_node_or_null("Labels/TextureRect2/KillTag")
 	killtag.text = enemy
 	death_sound.play(0.0)
@@ -187,7 +203,6 @@ func _on_death_sound_finished() -> void:
 		fade.get_node("Labels").visible = true
 	else:
 		load_main_menu()
-		fade.visible = false
 		fade.get_node("Labels").visible = false
 
 func _on_jumpscare_timer_timeout() -> void:

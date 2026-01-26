@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://cybp2s5wroj5d"]
+
+[ext_resource type="Texture2D" uid="uid://k5ex1twu6c8o" path="res://assets/images/enemies/phantom.png" id="1_4xxuh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xraoj"]
+atlas = ExtResource("1_4xxuh")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tymo3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xraoj")
+}],
+"loop": true,
+"name": &"default",
+"speed": 20.0
+}]
+
+[node name="Phantom" type="AnimatedSprite2D"]
+z_index = 5
+texture_filter = 1
+scale = Vector2(22.609373, 8.559572)
+sprite_frames = SubResource("SpriteFrames_tymo3")
+autoplay = "default"

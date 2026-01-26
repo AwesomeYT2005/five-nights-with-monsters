@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://20rgtdmbhfge" path="res://scripts/main.gd" id="1_o5qli"]
 [ext_resource type="PackedScene" uid="uid://f0dbx0fc5vdm" path="res://scenes/menu/black_screen.tscn" id="2_0wfyh"]
-[ext_resource type="AudioStream" path="res://assets/sounds/background/main_menu.mp3" id="3_sugp2"]
+[ext_resource type="AudioStream" uid="uid://bwvtttmh12w3s" path="res://assets/sounds/background/main_menu.mp3" id="3_sugp2"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_o5qli")
@@ -12,7 +12,7 @@ volume_db = 10.0
 max_polyphony = 5
 
 [node name="BlackScreen" parent="." instance=ExtResource("2_0wfyh")]
-z_index = 2
+z_index = 1
 
 [node name="JumpscareTimer" type="Timer" parent="."]
 one_shot = true

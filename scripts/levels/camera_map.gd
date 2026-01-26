@@ -6,7 +6,7 @@ extends Node2D
 @onready var terrain: AnimatedSprite2D = $Terrain
 @onready var mouse_area: Area2D = $MouseArea
 var game_ready = false
-var last_viewport: String
+var last_viewport
 
 #region Doorman Dependencies
 @onready var doorman: Sprite2D = $Terrain/Enemies/Doorman/Doorman
@@ -48,8 +48,10 @@ var corruption_total: int = 0
 #region Phantom Dependencies
 var phantom_scene: PackedScene = preload("res://scenes/enemies/phantom.tscn") 
 var phantom_instance
+var phantom_ready: bool = false
 @onready var phantom: Node2D = $Terrain/Enemies/Phantom
 @onready var phantom_s_timer: Timer = $Terrain/EnemyTimers/Phantom/SpawnTimer
+const PHANTOM_OFFSET: Vector2 = Vector2(-37,-47)
 #endregion
 
 #region Custom signals
@@ -74,9 +76,9 @@ func _ready() -> void:
 
 	#Game is ready
 	game_ready = true
-	last_viewport = get_viewport().get_camera_2d().name
+	last_viewport = get_viewport().get_camera_2d()
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 
 	#Doorman visible on monitor check
 	if terrain.animation == "corridor" and doorman_spawned:
@@ -92,18 +94,29 @@ func _process(_delta: float) -> void:
 
 	#Camera Corruption Indicator
 	corruption_indicator.frame = corruption_total
-	
+
 	#Corruption death
 	if corruption_total == 10:
 		player_dead.emit("The Corruption")
-	
+
 	#Phantom behaviour
-	if phantom_instance and !check_viewport_camera_changed():
-		phantom_instance.modulate.a += 0.00001
-		if phantom_instance.modulate.a == 1:
+	var cam_check: bool = check_viewport_camera_changed()
+	if phantom_ready and !cam_check:
+		if phantom_instance.modulate.a <= 0.3:
+			phantom_instance.modulate.a += 0.05 * delta
+		elif phantom_instance.modulate.a <= 0.6:
+			phantom_instance.modulate.a += 0.075 * delta
+		elif phantom_instance.modulate.a <= 1:
+			phantom_instance.modulate.a += 0.09 * delta
+
+		print(phantom_instance.modulate.a)
+		if phantom_instance.modulate.a >= 0.999:
+			phantom_instance.queue_free()
+			phantom_ready = false
 			player_dead.emit("The Phantom")
-	elif phantom_instance and check_viewport_camera_changed():
+	elif phantom_ready and cam_check:
 		phantom_instance.modulate.a = 0.0
+		phantom_instance.global_position = last_viewport.global_position + PHANTOM_OFFSET
 
 func _physics_process(delta: float) -> void:
 
@@ -126,7 +139,7 @@ func _physics_process(delta: float) -> void:
 
 #region Functions
 func check_viewport_camera_changed():
-	var actual_viewport: String = get_viewport().get_camera_2d().name
+	var actual_viewport = get_viewport().get_camera_2d()
 	if actual_viewport != last_viewport:
 		last_viewport = actual_viewport
 		return true
@@ -269,5 +282,7 @@ func _on_corruption_tree_exiting() -> void:
 #region Phantom Signals
 func _on_phantom_spawn_timer_timeout() -> void:
 	phantom_instance = phantom_scene.instantiate()
-	phantom.add_child(phantom_instance)
 	phantom_instance.modulate.a = 0.0
+	phantom.add_child(phantom_instance)
+	phantom_instance.global_position = last_viewport.global_position + PHANTOM_OFFSET
+	phantom_ready = true

@@ -137,6 +137,10 @@ func enemy_jumpscare(enemy) -> void:
 		jumpscare.scale = Vector2(6,6)
 		jumpscare.position = Vector2(-252,373)
 		jumpscared = true
+	elif enemy == "The Phantom":
+		load_main_menu()
+		fade.visible = false
+		fade.get_node("Labels").visible = false
 	else:
 		pass
 
@@ -165,7 +169,7 @@ func _on_camera_map_player_dead(enemy) -> void:
 	if enemy == "The Corruption":
 		death_sound.stream = TOYS_DYING
 	if enemy == "The Phantom":
-		pass
+		fade.get_node("Labels").visible = true
 	var killtag = fade.get_node_or_null("Labels/TextureRect2/KillTag")
 	killtag.text = enemy
 	death_sound.play(0.0)

@@ -63,7 +63,7 @@ size_flags_vertical = 3
 [node name="Version" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 8
-text = "VERSION 0.1.1"
+text = "VERSION 0.2.0"
 
 [node name="Disclaimer" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2

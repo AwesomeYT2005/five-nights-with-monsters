@@ -99,9 +99,7 @@ func load_main_menu() -> void:
 	var quit_button = main_menu_instance.get_node_or_null("MarginContainer/VBoxContainer/Quit")
 	await fadeanimation("in")
 	play_button.pressed.connect(_on_play_button_pressed)
-	if OS.get_name() != "HTML5":
-		quit_button.pressed.connect(_on_quit_button_pressed)
-		push_warning("Button connected!")
+	quit_button.pressed.connect(_on_quit_button_pressed)
 
 func _on_quit_button_pressed() -> void:
 	get_tree().quit()

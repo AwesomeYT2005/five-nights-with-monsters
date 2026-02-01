@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dga0p2wipab0f"]
 
-[ext_resource type="Script" uid="uid://dl3h5ulp5nmvb" path="res://scenes/enemies/phantom_death.gd" id="1_64wfs"]
+[ext_resource type="Script" uid="uid://dl3h5ulp5nmvb" path="res://scripts/enemies/phantom_death.gd" id="1_64wfs"]
 [ext_resource type="Texture2D" uid="uid://bvwvwa5fsi0da" path="res://assets/images/enemies/phantomdeath-spritesheet.png" id="2_om1nq"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ole55"]
@@ -10,6 +10,18 @@ region = Rect2(0, 0, 128, 128)
 [sub_resource type="AtlasTexture" id="AtlasTexture_afcdm"]
 atlas = ExtResource("2_om1nq")
 region = Rect2(256, 256, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_64wfs"]
+atlas = ExtResource("2_om1nq")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_om1nq"]
+atlas = ExtResource("2_om1nq")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qurfm"]
+atlas = ExtResource("2_om1nq")
+region = Rect2(0, 128, 128, 128)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_11hcl"]
 animations = [{
@@ -28,6 +40,30 @@ animations = [{
 "loop": true,
 "name": &"pissed",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_64wfs")
+}],
+"loop": true,
+"name": &"squinting",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_om1nq")
+}],
+"loop": true,
+"name": &"squirming",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qurfm")
+}],
+"loop": true,
+"name": &"thoughtful",
+"speed": 5.0
 }]
 
 [node name="PhantomDeath" type="Node2D" unique_id=441962902]
@@ -36,5 +72,6 @@ script = ExtResource("1_64wfs")
 [node name="Voice" type="AudioStreamPlayer2D" parent="." unique_id=470218977]
 
 [node name="PhantomDeathAnimation" type="AnimatedSprite2D" parent="." unique_id=1567584171]
+position = Vector2(611, 273)
 sprite_frames = SubResource("SpriteFrames_11hcl")
-animation = &"pissed"
+animation = &"neutral"

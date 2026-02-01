@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://41hjpri3mp85"]
+[gd_scene format=3 uid="uid://41hjpri3mp85"]
 
 [ext_resource type="VideoStream" uid="uid://dioddncksatiu" path="res://assets/video/menu/menu-static.ogv" id="1_nl8w3"]
 
-[node name="MainMenu" type="Control"]
+[node name="MainMenu" type="Control" unique_id=899879011]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -10,7 +10,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="BG" type="VideoStreamPlayer" parent="."]
+[node name="BG" type="VideoStreamPlayer" parent="." unique_id=1288434100]
 self_modulate = Color(0, 0.3770668, 0, 1)
 show_behind_parent = true
 layout_mode = 0
@@ -22,7 +22,7 @@ expand = true
 loop = true
 metadata/_edit_lock_ = true
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1017627614]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -34,38 +34,38 @@ theme_override_constants/margin_top = 80
 theme_override_constants/margin_right = 120
 theme_override_constants/margin_bottom = 80
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1011926366]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer" unique_id=786166499]
 layout_mode = 2
 theme_override_font_sizes/font_size = 90
 text = "HUNKER DOWN"
 horizontal_alignment = 1
 
-[node name="Play" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="Play" type="Button" parent="MarginContainer/VBoxContainer" unique_id=622519190]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 10
 theme_override_font_sizes/font_size = 32
 text = "PLAY"
 
-[node name="Quit" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="Quit" type="Button" parent="MarginContainer/VBoxContainer" unique_id=66773954]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 32
 text = "QUIT"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=2097752354]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Version" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Version" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=418938519]
 layout_mode = 2
 size_flags_vertical = 8
-text = "VERSION 0.2.0"
+text = "VERSION 0.2.1"
 
-[node name="Disclaimer" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Disclaimer" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=895976393]
 layout_mode = 2
 size_flags_horizontal = 10
 size_flags_vertical = 8

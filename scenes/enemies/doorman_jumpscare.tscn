@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://t3mdhjr42hpm"]
+[gd_scene format=3 uid="uid://t3mdhjr42hpm"]
 
 [ext_resource type="Texture2D" uid="uid://cccf4e3ro15td" path="res://assets/images/enemies/doormanjumpscare-sheet.png" id="1_hxe6r"]
 
@@ -204,7 +204,8 @@ animations = [{
 "speed": 20.0
 }]
 
-[node name="DoormanJumpscare" type="AnimatedSprite2D"]
+[node name="DoormanJumpscare" type="AnimatedSprite2D" unique_id=1922499465]
 texture_filter = 1
+scale = Vector2(6, 6)
 sprite_frames = SubResource("SpriteFrames_b67r5")
 animation = &"smile"

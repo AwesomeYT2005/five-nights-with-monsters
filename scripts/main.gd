@@ -43,7 +43,7 @@ var d_timer2_started = false
 #endregion
 
 #region Custom Signals
-signal fade_finished
+#signal fade_finished
 #endregion
 
 func _ready() -> void:
@@ -73,17 +73,20 @@ func _physics_process(delta: float) -> void:
 			elif d_stage == 1 and d_timer1_started == false:
 				d_timer1_started = true
 				await get_tree().create_timer(2,false,true).timeout
+				d_timer1_started = false
 				d_stage = 2
 				j.play("smile")
 			elif d_stage == 2 and d_timer2_started == false:
 				d_timer2_started = true
 				await get_tree().create_timer(2,false,true).timeout
+				d_timer2_started = false
 				d_stage = 3
 				j.play("eye")
 			elif d_stage == 4:
 				j.scale *= Vector2(delta+1.05,delta+1.05)
 				death_sound.volume_db = 20
 				if j.scale > Vector2(45,45):
+					d_stage = 0
 					jumpscared = false
 					death_sound.stop()
 					death_sound.finished.emit()
@@ -137,7 +140,6 @@ func enemy_jumpscare(enemy) -> void:
 		self.add_child(jumpscare)
 		jumpscare.animation_finished.connect(_on_jumpscare_animation_finished)
 		jumpscare.name = "The Doorman"
-		jumpscare.scale = Vector2(6,6)
 		jumpscare.position = Vector2(-252,373)
 		jumpscared = true
 	elif enemy == "The Phantom":
@@ -197,8 +199,9 @@ func _on_death_sound_finished() -> void:
 	elif death_sound.stream == DUBSTEP_GROWL:
 		death_sound.stream = DOORMAN_LINE
 		death_sound.play(0.0)
-		get_node(jumpscared_by).queue_free()
 		fade.get_node("Labels").visible = true
+		get_node(jumpscared_by).scale = Vector2(6,6)
+		get_node(jumpscared_by).queue_free()
 	else:
 		load_main_menu()
 		fade.get_node("Labels").visible = false

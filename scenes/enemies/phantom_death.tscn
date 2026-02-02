@@ -1,7 +1,40 @@
 [gd_scene format=3 uid="uid://dga0p2wipab0f"]
 
 [ext_resource type="Script" uid="uid://dl3h5ulp5nmvb" path="res://scripts/enemies/phantom_death.gd" id="1_64wfs"]
+[ext_resource type="AudioStream" uid="uid://cvcnrs848jdk1" path="res://assets/sounds/enemies/phantom/phantomdeathvoicelines.ogg" id="2_ole55"]
 [ext_resource type="Texture2D" uid="uid://bvwvwa5fsi0da" path="res://assets/images/enemies/phantomdeath-spritesheet.png" id="2_om1nq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_utcsy"]
+atlas = ExtResource("2_om1nq")
+region = Rect2(256, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hsjau"]
+atlas = ExtResource("2_om1nq")
+region = Rect2(128, 256, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a4wke"]
+atlas = ExtResource("2_om1nq")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vg3ip"]
+atlas = ExtResource("2_om1nq")
+region = Rect2(0, 256, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_14xsl"]
+atlas = ExtResource("2_om1nq")
+region = Rect2(384, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6u2yb"]
+atlas = ExtResource("2_om1nq")
+region = Rect2(128, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t6max"]
+atlas = ExtResource("2_om1nq")
+region = Rect2(384, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1hxov"]
+atlas = ExtResource("2_om1nq")
+region = Rect2(0, 256, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ole55"]
 atlas = ExtResource("2_om1nq")
@@ -25,6 +58,65 @@ region = Rect2(0, 128, 128, 128)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_11hcl"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_utcsy")
+}],
+"loop": true,
+"name": &"ashamed",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hsjau")
+}],
+"loop": true,
+"name": &"closed",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a4wke")
+}],
+"loop": true,
+"name": &"flat",
+"speed": 20.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vg3ip")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_14xsl")
+}],
+"loop": true,
+"name": &"look_around",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6u2yb")
+}],
+"loop": true,
+"name": &"look_down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t6max")
+}],
+"loop": true,
+"name": &"look_left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1hxov")
+}],
+"loop": true,
+"name": &"look_right",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ole55")
@@ -69,9 +161,81 @@ animations = [{
 [node name="PhantomDeath" type="Node2D" unique_id=441962902]
 script = ExtResource("1_64wfs")
 
+[node name="ColorRect" type="ColorRect" parent="." unique_id=962977704]
+offset_left = -35.0
+offset_top = -31.0
+offset_right = 1323.0
+offset_bottom = 762.0
+color = Color(0, 0, 0, 1)
+
 [node name="Voice" type="AudioStreamPlayer2D" parent="." unique_id=470218977]
+stream = ExtResource("2_ole55")
+
+[node name="Crash" type="AudioStreamPlayer2D" parent="." unique_id=1161863926]
 
 [node name="PhantomDeathAnimation" type="AnimatedSprite2D" parent="." unique_id=1567584171]
-position = Vector2(611, 273)
+texture_filter = 1
+position = Vector2(458, 216)
+scale = Vector2(5, 5)
 sprite_frames = SubResource("SpriteFrames_11hcl")
 animation = &"neutral"
+
+[node name="TextFunctions" type="Control" parent="." unique_id=365842575]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextBG" type="ColorRect" parent="TextFunctions" unique_id=1135369077]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 70.0
+offset_top = 460.0
+offset_right = 1170.0
+offset_bottom = 660.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="TextFunctions/TextBG" unique_id=1580135632]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 7.0
+offset_right = 1095.0
+offset_bottom = 192.0
+color = Color(0, 0, 0, 1)
+
+[node name="Text" type="Label" parent="TextFunctions" unique_id=662064430]
+layout_mode = 0
+offset_left = 107.0
+offset_top = 497.0
+offset_right = 1175.0
+offset_bottom = 665.0
+theme_override_font_sizes/font_size = 36
+autowrap_mode = 3
+
+[node name="Choice" type="Control" parent="." unique_id=1232150917]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 838.0
+offset_top = 86.0
+offset_right = 1116.0
+offset_bottom = 411.0
+
+[node name="ButtonsCont" type="VBoxContainer" parent="Choice" unique_id=1510892599]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1

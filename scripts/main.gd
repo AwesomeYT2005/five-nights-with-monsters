@@ -4,6 +4,8 @@ extends Node
 @onready var death_sound: AudioStreamPlayer2D = $DeathSound
 @onready var win_timer: Timer = $WinTimer
 @onready var menu_music: AudioStreamPlayer = $MenuMusic
+var in_game = false
+var paused = false
 
 #region Audio
 
@@ -54,6 +56,12 @@ func _process(_delta) -> void:
 		death_sound.volume_db += 0.01
 	if menu_music.get_playback_position() > 28.85 and !level_instance:
 		menu_music.play()
+	if Input.is_action_just_pressed("pause") and level_instance:
+		paused = !paused
+		if paused:
+			level_instance.process_mode = PROCESS_MODE_DISABLED
+		elif !paused:
+			level_instance.process_mode = PROCESS_MODE_INHERIT
 
 func _physics_process(delta: float) -> void:
 	if jumpscared == true:
@@ -94,6 +102,7 @@ func _physics_process(delta: float) -> void:
 #region Functions
 
 func load_main_menu() -> void:
+	in_game = false
 	death_sound.stream = null
 	menu_music.play()
 	main_menu_instance = main_menu_scene.instantiate()
@@ -123,6 +132,7 @@ func _on_play_button_pressed() -> void:
 	level_instance.process_mode = Node.PROCESS_MODE_ALWAYS
 	win_timer.wait_time = 360.0 #Default: 360.0
 	win_timer.start()
+	in_game = true
 
 func enemy_jumpscare(enemy) -> void:
 	if enemy == "Chirrup":

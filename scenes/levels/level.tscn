@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://c6b8sb1s2sl7s"]
+[gd_scene format=3 uid="uid://c6b8sb1s2sl7s"]
 
 [ext_resource type="Texture2D" uid="uid://si4xh4xhyfi2" path="res://assets/images/terrain/tempdesk.png" id="1_b2cq8"]
 [ext_resource type="Texture2D" uid="uid://bwd30dahgl8r3" path="res://assets/images/player/light/lightcircles.png" id="1_bovvr"]
@@ -41,10 +41,10 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Level" type="Node2D"]
+[node name="Level" type="Node2D" unique_id=2131074039]
 script = ExtResource("1_xb4v1")
 
-[node name="PlayerLight" type="PointLight2D" parent="."]
+[node name="PlayerLight" type="PointLight2D" parent="." unique_id=919569935]
 visibility_layer = 2
 position = Vector2(515, 397)
 color = Color(0.8784058, 0.8784058, 0.8784058, 1)
@@ -53,19 +53,19 @@ texture = ExtResource("1_bovvr")
 texture_scale = 5.0
 script = ExtResource("2_b2cq8")
 
-[node name="Locations" type="Node" parent="."]
+[node name="Locations" type="Node" parent="." unique_id=218410558]
 
-[node name="Desk" type="Camera2D" parent="Locations"]
+[node name="Desk" type="Camera2D" parent="Locations" unique_id=376029364]
 position = Vector2(640, 360)
 
-[node name="Terrain" type="Sprite2D" parent="Locations/Desk"]
+[node name="Terrain" type="Sprite2D" parent="Locations/Desk" unique_id=264108961]
 self_modulate = Color(0.116820924, 0.118107855, 0.118107855, 1)
 texture_filter = 1
 texture = ExtResource("1_b2cq8")
 
-[node name="MovementAreas" type="Node" parent="Locations/Desk"]
+[node name="MovementAreas" type="Node" parent="Locations/Desk" unique_id=1895881265]
 
-[node name="Bottom" type="Sprite2D" parent="Locations/Desk/MovementAreas"]
+[node name="Bottom" type="Sprite2D" parent="Locations/Desk/MovementAreas" unique_id=1690196169]
 self_modulate = Color(1, 1, 1, 0.54901963)
 texture_filter = 1
 position = Vector2(640, 670)
@@ -73,12 +73,12 @@ scale = Vector2(0.25, 0.25)
 texture = ExtResource("6_d4w6o")
 metadata/_edit_group_ = true
 
-[node name="BottomArrow" type="Area2D" parent="Locations/Desk/MovementAreas/Bottom"]
+[node name="BottomArrow" type="Area2D" parent="Locations/Desk/MovementAreas/Bottom" unique_id=1049038448]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Locations/Desk/MovementAreas/Bottom/BottomArrow"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Locations/Desk/MovementAreas/Bottom/BottomArrow" unique_id=778568167]
 shape = SubResource("RectangleShape2D_d4w6o")
 
-[node name="Left" type="Sprite2D" parent="Locations/Desk/MovementAreas"]
+[node name="Left" type="Sprite2D" parent="Locations/Desk/MovementAreas" unique_id=1451156103]
 self_modulate = Color(1, 1, 1, 0.54901963)
 texture_filter = 1
 position = Vector2(50, 360)
@@ -86,29 +86,29 @@ scale = Vector2(0.25, 0.25)
 texture = ExtResource("6_icy5c")
 metadata/_edit_group_ = true
 
-[node name="LeftArrow" type="Area2D" parent="Locations/Desk/MovementAreas/Left"]
+[node name="LeftArrow" type="Area2D" parent="Locations/Desk/MovementAreas/Left" unique_id=1128495519]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Locations/Desk/MovementAreas/Left/LeftArrow"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Locations/Desk/MovementAreas/Left/LeftArrow" unique_id=1744930650]
 shape = SubResource("RectangleShape2D_7pb6i")
 
-[node name="PCScreen" type="Button" parent="Locations/Desk/MovementAreas"]
+[node name="PCScreen" type="Button" parent="Locations/Desk/MovementAreas" unique_id=540364610]
 offset_left = 390.0
 offset_top = 344.0
 offset_right = 802.0
 offset_bottom = 567.0
 
-[node name="Backdoor" type="Camera2D" parent="Locations"]
+[node name="Backdoor" type="Camera2D" parent="Locations" unique_id=1039876582]
 position = Vector2(1920, 360)
 enabled = false
 
-[node name="Terrain" type="Sprite2D" parent="Locations/Backdoor"]
+[node name="Terrain" type="Sprite2D" parent="Locations/Backdoor" unique_id=242166007]
 self_modulate = Color(0.116820924, 0.118107855, 0.118107855, 1)
 texture_filter = 1
 texture = ExtResource("2_mbbpy")
 
-[node name="MovementAreas" type="Node" parent="Locations/Backdoor"]
+[node name="MovementAreas" type="Node" parent="Locations/Backdoor" unique_id=2120189961]
 
-[node name="Top" type="Sprite2D" parent="Locations/Backdoor/MovementAreas"]
+[node name="Top" type="Sprite2D" parent="Locations/Backdoor/MovementAreas" unique_id=158263202]
 self_modulate = Color(1, 1, 1, 0.54901963)
 texture_filter = 1
 position = Vector2(1920, 50)
@@ -116,37 +116,37 @@ scale = Vector2(0.25, 0.25)
 texture = ExtResource("5_urvlt")
 metadata/_edit_group_ = true
 
-[node name="TopArrow" type="Area2D" parent="Locations/Backdoor/MovementAreas/Top"]
+[node name="TopArrow" type="Area2D" parent="Locations/Backdoor/MovementAreas/Top" unique_id=1967911452]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Locations/Backdoor/MovementAreas/Top/TopArrow"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Locations/Backdoor/MovementAreas/Top/TopArrow" unique_id=2008084980]
 shape = SubResource("RectangleShape2D_d4w6o")
 
-[node name="DoorArea" type="Area2D" parent="Locations/Backdoor"]
+[node name="DoorArea" type="Area2D" parent="Locations/Backdoor" unique_id=1534841413]
 position = Vector2(-0.00012207031, 0)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Locations/Backdoor/DoorArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Locations/Backdoor/DoorArea" unique_id=990547397]
 position = Vector2(4.5, 20.5)
 shape = SubResource("RectangleShape2D_5mi6g")
 
-[node name="Door" type="Sprite2D" parent="Locations/Backdoor/DoorArea"]
+[node name="Door" type="Sprite2D" parent="Locations/Backdoor/DoorArea" unique_id=155498840]
 visible = false
 self_modulate = Color(0.42482373, 0.42482373, 0.42482373, 1)
 position = Vector2(5.000244, 20)
 scale = Vector2(1.8593764, 4.7500005)
 texture = ExtResource("13_mq31s")
 
-[node name="Window" type="Camera2D" parent="Locations"]
+[node name="Window" type="Camera2D" parent="Locations" unique_id=704946465]
 position = Vector2(640, 1080)
 enabled = false
 
-[node name="Terrain" type="Sprite2D" parent="Locations/Window"]
+[node name="Terrain" type="Sprite2D" parent="Locations/Window" unique_id=1798639682]
 self_modulate = Color(0.116820924, 0.118107855, 0.118107855, 1)
 texture_filter = 1
 texture = ExtResource("9_rmjfq")
 
-[node name="MovementAreas" type="Node" parent="Locations/Window"]
+[node name="MovementAreas" type="Node" parent="Locations/Window" unique_id=1104459519]
 
-[node name="Right" type="Sprite2D" parent="Locations/Window/MovementAreas"]
+[node name="Right" type="Sprite2D" parent="Locations/Window/MovementAreas" unique_id=2050952777]
 self_modulate = Color(1, 1, 1, 0.54509807)
 texture_filter = 1
 position = Vector2(1230, 1080)
@@ -154,12 +154,12 @@ scale = Vector2(0.25, 0.25)
 texture = ExtResource("10_rmjfq")
 metadata/_edit_group_ = true
 
-[node name="RightArrow" type="Area2D" parent="Locations/Window/MovementAreas/Right"]
+[node name="RightArrow" type="Area2D" parent="Locations/Window/MovementAreas/Right" unique_id=605505360]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Locations/Window/MovementAreas/Right/RightArrow"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Locations/Window/MovementAreas/Right/RightArrow" unique_id=770223796]
 shape = SubResource("RectangleShape2D_7pb6i")
 
-[node name="Wardrobe" type="TextureButton" parent="Locations/Window"]
+[node name="Wardrobe" type="TextureButton" parent="Locations/Window" unique_id=665056637]
 self_modulate = Color(0.25408608, 0.25408608, 0.25408608, 1)
 texture_filter = 1
 offset_left = -506.0
@@ -170,21 +170,21 @@ texture_normal = ExtResource("12_8iyoh")
 texture_hover = ExtResource("13_5mi6g")
 stretch_mode = 0
 
-[node name="Computer" type="Camera2D" parent="Locations"]
+[node name="Computer" type="Camera2D" parent="Locations" unique_id=1286266986]
 position = Vector2(1920, 1080)
 enabled = false
 
-[node name="Terrain" type="Sprite2D" parent="Locations/Computer"]
+[node name="Terrain" type="Sprite2D" parent="Locations/Computer" unique_id=1701148260]
 self_modulate = Color(0.116820924, 0.118107855, 0.118107855, 1)
 texture_filter = 1
 texture = ExtResource("12_xfk5q")
 
-[node name="CameraMap" parent="Locations/Computer" instance=ExtResource("11_7pb6i")]
+[node name="CameraMap" parent="Locations/Computer" unique_id=1811582065 instance=ExtResource("11_7pb6i")]
 position = Vector2(454, 156)
 
-[node name="MovementAreas" type="Node" parent="Locations/Computer"]
+[node name="MovementAreas" type="Node" parent="Locations/Computer" unique_id=344650942]
 
-[node name="Top" type="Sprite2D" parent="Locations/Computer/MovementAreas"]
+[node name="Top" type="Sprite2D" parent="Locations/Computer/MovementAreas" unique_id=1450643701]
 self_modulate = Color(1, 1, 1, 0.54901963)
 texture_filter = 1
 position = Vector2(1920, 770)
@@ -192,24 +192,24 @@ scale = Vector2(0.25, 0.25)
 texture = ExtResource("5_urvlt")
 metadata/_edit_group_ = true
 
-[node name="TopArrow" type="Area2D" parent="Locations/Computer/MovementAreas/Top"]
+[node name="TopArrow" type="Area2D" parent="Locations/Computer/MovementAreas/Top" unique_id=2081215701]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Locations/Computer/MovementAreas/Top/TopArrow"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Locations/Computer/MovementAreas/Top/TopArrow" unique_id=118044287]
 shape = SubResource("RectangleShape2D_d4w6o")
 
-[node name="Wardrobe" type="Camera2D" parent="Locations"]
+[node name="Wardrobe" type="Camera2D" parent="Locations" unique_id=860980262]
 position = Vector2(640, -360)
 enabled = false
 
-[node name="Terrain" type="AnimatedSprite2D" parent="Locations/Wardrobe"]
+[node name="Terrain" type="AnimatedSprite2D" parent="Locations/Wardrobe" unique_id=1673087109]
 self_modulate = Color(0.116820924, 0.118107855, 0.118107855, 1)
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_qhnmj")
 animation = &"wardrobe"
 
-[node name="MovementAreas" type="Node" parent="Locations/Wardrobe"]
+[node name="MovementAreas" type="Node" parent="Locations/Wardrobe" unique_id=1694484141]
 
-[node name="Bottom" type="Sprite2D" parent="Locations/Wardrobe/MovementAreas"]
+[node name="Bottom" type="Sprite2D" parent="Locations/Wardrobe/MovementAreas" unique_id=1530358616]
 self_modulate = Color(1, 1, 1, 0.54901963)
 texture_filter = 1
 position = Vector2(640, -50)
@@ -217,9 +217,9 @@ scale = Vector2(0.25, 0.25)
 texture = ExtResource("6_d4w6o")
 metadata/_edit_group_ = true
 
-[node name="BottomArrow" type="Area2D" parent="Locations/Wardrobe/MovementAreas/Bottom"]
+[node name="BottomArrow" type="Area2D" parent="Locations/Wardrobe/MovementAreas/Bottom" unique_id=1358747064]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Locations/Wardrobe/MovementAreas/Bottom/BottomArrow"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Locations/Wardrobe/MovementAreas/Bottom/BottomArrow" unique_id=961180341]
 shape = SubResource("RectangleShape2D_d4w6o")
 
 [connection signal="mouse_entered" from="Locations/Desk/MovementAreas/Bottom/BottomArrow" to="." method="_on_bottom_arrow_mouse_entered"]

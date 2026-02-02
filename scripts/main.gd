@@ -142,7 +142,7 @@ func enemy_jumpscare(enemy) -> void:
 		jumpscare.name = "The Doorman"
 		jumpscare.position = Vector2(-252,373)
 		jumpscared = true
-	elif enemy == "The Phantom":
+	elif enemy == "The Phantom" or enemy == "The Corruption":
 		load_main_menu()
 		fade.visible = false
 		fade.get_node("Labels").visible = false

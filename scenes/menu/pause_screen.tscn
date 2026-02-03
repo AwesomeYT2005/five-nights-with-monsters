@@ -1,0 +1,78 @@
+[gd_scene format=3 uid="uid://d26a5kh52lva2"]
+
+[ext_resource type="AudioStream" uid="uid://cc10sanwmf58r" path="res://assets/sounds/background/pause_menu.mp3" id="1_s4fn5"]
+
+[node name="PauseScreen" type="Control" unique_id=988825415]
+z_index = 5
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1254435238]
+modulate = Color(1, 1, 1, 0.972549)
+z_index = 5
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.10747976, 0.10747973, 0.10747973, 1)
+
+[node name="MCont" type="MarginContainer" parent="." unique_id=842787059]
+z_index = 5
+layout_mode = 0
+offset_left = 280.0
+offset_right = 1000.0
+offset_bottom = 720.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 100
+
+[node name="CenterContainer" type="CenterContainer" parent="MCont" unique_id=389594466]
+layout_mode = 2
+
+[node name="VBox1" type="VBoxContainer" parent="MCont" unique_id=1317523956]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = -50
+
+[node name="Label" type="Label" parent="MCont/VBox1" unique_id=416155473]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 130
+text = "PAUSED"
+
+[node name="VBox2" type="VBoxContainer" parent="MCont/VBox1" unique_id=1970594166]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_constants/separation = 13
+alignment = 2
+
+[node name="Unpause" type="Button" parent="MCont/VBox1/VBox2" unique_id=1500382591]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 32
+text = "RETURN TO GAME"
+
+[node name="Quit" type="Button" parent="MCont/VBox1/VBox2" unique_id=2087730661]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "QUIT GAME"
+
+[node name="PauseMusic" type="AudioStreamPlayer2D" parent="." unique_id=420343842]
+stream = ExtResource("1_s4fn5")
+volume_db = -5.0
+autoplay = true
+parameters/looping = true

@@ -24,9 +24,11 @@ const DOORMAN_LINE = preload("res://assets/sounds/enemies/doorman/DoormanDeathLi
 
 var main_menu_scene = preload("res://scenes/menu/main_menu.tscn")
 var level_scene = preload("res://scenes/levels/level.tscn")
+var pause_scene = preload("res://scenes/menu/pause_screen.tscn")
 
 var main_menu_instance
 var level_instance
+var pause_instance
 
 #endregion
 
@@ -56,15 +58,13 @@ func _process(_delta) -> void:
 		death_sound.volume_db += 0.01
 	if menu_music.get_playback_position() > 28.85 and !level_instance:
 		menu_music.play()
-	if Input.is_action_just_pressed("pause") and level_instance:
+	if Input.is_action_just_pressed("pause") and level_instance and in_game:
 		paused = !paused
-		if paused:
-			level_instance.process_mode = PROCESS_MODE_DISABLED
-		elif !paused:
-			level_instance.process_mode = PROCESS_MODE_INHERIT
+		pause_menu()
 
 func _physics_process(delta: float) -> void:
 	if jumpscared == true:
+		in_game = false
 		var j = get_node_or_null(jumpscared_by)
 		if jumpscared_by == "Chirrup":
 			j.scale *= Vector2(delta+1.05,delta+1.05)
@@ -102,7 +102,6 @@ func _physics_process(delta: float) -> void:
 #region Functions
 
 func load_main_menu() -> void:
-	in_game = false
 	death_sound.stream = null
 	menu_music.play()
 	main_menu_instance = main_menu_scene.instantiate()
@@ -168,6 +167,21 @@ func fadeanimation(type):
 		for i in range(100):
 			await get_tree().create_timer(0.01).timeout
 			fade.modulate.a += 0.01
+
+func pause_menu() -> void:
+	if paused:
+		level_instance.process_mode = PROCESS_MODE_DISABLED
+		pause_instance = pause_scene.instantiate()
+		pause_instance.position = get_viewport().get_camera_2d().position - Vector2(640,360)
+		var unpause = pause_instance.get_node("MCont/VBox1/VBox2/Unpause")
+		var quit = pause_instance.get_node("MCont/VBox1/VBox2/Quit")
+		unpause.pressed.connect(_on_unpause_pressed)
+		quit.pressed.connect(_on_quit_pressed)
+		self.add_child(pause_instance)
+	if !paused:
+		level_instance.process_mode = PROCESS_MODE_ALWAYS
+		pause_instance.queue_free()
+
 #endregion
 
 #region Signals
@@ -234,5 +248,26 @@ func _on_win_timer_timeout() -> void:
 	await get_tree().create_timer(5).timeout
 	fade.get_node("Win").visible = false
 	load_main_menu()
+
+func _on_unpause_pressed() -> void:
+	paused = !paused
+	pause_menu()
+
+func _on_quit_pressed() -> void:
+	win_timer.stop()
+	fade.position = get_viewport().get_camera_2d().position - Vector2(640,360)
+	fade.z_index = 15
+	fade.visible = true
+	var pause_music = pause_instance.get_node("PauseMusic")
+	for i in range(100):
+		pause_music.volume_db -= 0.05
+	await fadeanimation("out")
+	in_game = false
+	pause_instance.queue_free()
+	level_instance.queue_free()
+	paused = false
+	fade.z_index = 1
+	load_main_menu()
+	fade.position = main_menu_instance.position
 
 #endregion

@@ -25,10 +25,12 @@ const DOORMAN_LINE = preload("res://assets/sounds/enemies/doorman/DoormanDeathLi
 var main_menu_scene = preload("res://scenes/menu/main_menu.tscn")
 var level_scene = preload("res://scenes/levels/level.tscn")
 var pause_scene = preload("res://scenes/menu/pause_screen.tscn")
+var phantom_death_scene = preload("res://scenes/enemies/phantom_death.tscn")
 
 var main_menu_instance
 var level_instance
 var pause_instance
+var phantom_death_instance
 
 #endregion
 
@@ -43,6 +45,7 @@ var jumpscared_by
 var d_stage = 0
 var d_timer1_started = false
 var d_timer2_started = false
+var first_phantom_jumpscare = true
 
 #endregion
 
@@ -197,7 +200,13 @@ func _on_camera_map_player_dead(enemy) -> void:
 		death_sound.stream = WINDOW_SMASH
 	if enemy == "The Corruption":
 		death_sound.stream = TOYS_DYING
-	if enemy == "The Phantom":
+	if enemy == "The Phantom" and first_phantom_jumpscare:
+		fade.visible = false
+		first_phantom_jumpscare = !first_phantom_jumpscare
+		phantom_death_instance = phantom_death_scene.instantiate()
+		self.add_child(phantom_death_instance)
+		jumpscare_timer.process_mode = Node.PROCESS_MODE_DISABLED
+	elif enemy == "The Phantom" and !first_phantom_jumpscare:
 		fade.get_node("Labels").visible = true
 	var killtag = fade.get_node_or_null("Labels/TextureRect2/KillTag")
 	killtag.text = enemy
